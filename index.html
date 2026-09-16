@@ -4,6 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>אימון למבחני מחוננים ומצוינות</title>
+  <script>
+    // set theme before render to avoid flash of wrong theme
+    (function () {
+      var t;
+      try { t = localStorage.getItem("hnunin_theme"); } catch (e) {}
+      if (!t) t = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
   <style>
     :root {
       --primary: #4f46e5;
@@ -13,6 +22,50 @@
       --success: #10b981;
       --error: #ef4444;
       --warn: #f59e0b;
+      --border: #e5e7eb;
+      --input-border: #d1d5db;
+      --opt-bg: #ffffff;
+      --hover: #f9fafb;
+      --muted: #6b7280;
+      --soft: #f9fafb;
+      --badge-bg: #e0e7ff;
+      --exp-bg: #f0fdf4;
+      --sec-bg: #e5e7eb;
+      --shadow: rgba(0, 0, 0, 0.1);
+    }
+    html[data-theme="dark"] {
+      --primary: #818cf8;
+      --bg: #0f172a;
+      --card: #1e293b;
+      --text: #e2e8f0;
+      --success: #34d399;
+      --error: #f87171;
+      --warn: #fbbf24;
+      --border: #334155;
+      --input-border: #475569;
+      --opt-bg: #273449;
+      --hover: #334155;
+      --muted: #94a3b8;
+      --soft: #273449;
+      --badge-bg: #312e81;
+      --exp-bg: #14342b;
+      --sec-bg: #334155;
+      --shadow: rgba(0, 0, 0, 0.5);
+    }
+    .theme-toggle {
+      position: fixed;
+      top: 14px;
+      left: 14px;
+      z-index: 100;
+      width: 42px;
+      height: 42px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      font-size: 18px;
+      cursor: pointer;
+      box-shadow: 0 2px 4px var(--shadow);
     }
     body {
       font-family: system-ui, -apple-system, sans-serif;
@@ -35,23 +88,25 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      border-bottom: 2px solid #e5e7eb;
+      border-bottom: 2px solid var(--border);
       padding-bottom: 12px;
       margin-bottom: 20px;
     }
     h1 { font-size: 22px; margin: 0 0 4px; }
-    .subtitle { color: #6b7280; margin: 0 0 20px; font-size: 15px; }
+    .subtitle { color: var(--muted); margin: 0 0 20px; font-size: 15px; }
     .topic-select, .text-input {
       width: 100%;
       padding: 10px;
       margin-bottom: 20px;
       border-radius: 8px;
-      border: 1px solid #d1d5db;
+      border: 1px solid var(--input-border);
+      background: var(--card);
+      color: var(--text);
       font-size: 16px;
       box-sizing: border-box;
     }
     .badge {
-      background: #e0e7ff;
+      background: var(--badge-bg);
       color: var(--primary);
       padding: 4px 12px;
       border-radius: 999px;
@@ -76,23 +131,25 @@
     .options { display: flex; flex-direction: column; gap: 10px; }
     .btn-option {
       padding: 12px 16px;
-      border: 1px solid #d1d5db;
-      background: #fff;
+      border: 1px solid var(--input-border);
+      background: var(--opt-bg);
+      color: var(--text);
       border-radius: 8px;
       text-align: right;
       font-size: 16px;
       cursor: pointer;
       transition: all 0.2s;
     }
-    .btn-option:hover { background: #f9fafb; border-color: var(--primary); }
-    .btn-option.selected { background: #e0e7ff; border-color: var(--primary); }
-    .btn-option.correct { background: #d1fae5; border-color: var(--success); }
-    .btn-option.incorrect { background: #fee2e2; border-color: var(--error); }
+    .btn-option:hover { background: var(--hover); border-color: var(--primary); }
+    /* answered-state tints keep dark text in both themes for contrast */
+    .btn-option.selected { background: #c7d2fe; border-color: var(--primary); color: #1e293b; }
+    .btn-option.correct { background: #d1fae5; border-color: var(--success); color: #064e3b; }
+    .btn-option.incorrect { background: #fee2e2; border-color: var(--error); color: #7f1d1d; }
     .btn-option:disabled { cursor: default; }
     .explanation {
       margin-top: 16px;
       padding: 12px;
-      background: #f0fdf4;
+      background: var(--exp-bg);
       border-right: 4px solid var(--success);
       border-radius: 4px;
     }
@@ -113,15 +170,15 @@
       cursor: pointer;
     }
     .btn:disabled { opacity: 0.5; cursor: not-allowed; }
-    .btn-secondary { background: #e5e7eb; color: var(--text); }
+    .btn-secondary { background: var(--sec-bg); color: var(--text); }
     .mode-buttons { display: flex; gap: 12px; }
     .mode-buttons .btn { flex: 1; }
     .hidden { display: none; }
     /* results */
     .score-big { font-size: 48px; font-weight: 800; text-align: center; color: var(--primary); margin: 8px 0; }
-    .score-sub { text-align: center; color: #6b7280; margin-bottom: 20px; }
-    .topic-row { display: flex; justify-content: space-between; padding: 10px 12px; border-radius: 8px; background: #f9fafb; margin-bottom: 8px; font-size: 15px; }
-    .review-item { border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px; margin-bottom: 10px; font-size: 15px; }
+    .score-sub { text-align: center; color: var(--muted); margin-bottom: 20px; }
+    .topic-row { display: flex; justify-content: space-between; padding: 10px 12px; border-radius: 8px; background: var(--soft); margin-bottom: 8px; font-size: 15px; }
+    .review-item { border: 1px solid var(--border); border-radius: 8px; padding: 12px; margin-bottom: 10px; font-size: 15px; }
     .review-item .q { font-weight: 600; margin-bottom: 6px; }
     .review-item .line { margin: 2px 0; }
     .ok { color: var(--success); font-weight: bold; }
@@ -131,13 +188,43 @@
     .res-good { border-right: 6px solid var(--success); background: #f0fdf4; }
     .res-fair { border-right: 6px solid var(--warn);    background: #fffbeb; }
     .res-bad  { border-right: 6px solid var(--error);   background: #fef2f2; }
+    html[data-theme="dark"] .res-good { background: #14342b; }
+    html[data-theme="dark"] .res-fair { background: #3b2f14; }
+    html[data-theme="dark"] .res-bad  { background: #3b1a1a; }
     .pill { padding: 2px 10px; border-radius: 999px; font-weight: bold; font-size: 13px; color: #fff; }
     .pill-good { background: var(--success); }
     .pill-fair { background: var(--warn); }
     .pill-bad  { background: var(--error); }
+    /* celebration popup */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 9998;
+      background: rgba(0, 0, 0, 0.55);
+      display: flex; align-items: center; justify-content: center;
+      padding: 20px; animation: fade .25s ease;
+    }
+    @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+    .modal-card {
+      background: var(--card); color: var(--text);
+      border-radius: 24px; padding: 34px 28px; max-width: 380px; width: 100%;
+      text-align: center; position: relative;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+      background-image: radial-gradient(circle at 50% -20%, rgba(129,140,248,0.25), transparent 60%);
+      animation: pop .45s cubic-bezier(.18,1.5,.4,1);
+    }
+    @keyframes pop { 0% { transform: scale(.55); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+    .modal-emoji { font-size: 68px; line-height: 1; display: inline-block; animation: bob 1.1s ease-in-out infinite; }
+    @keyframes bob { 0%,100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-10px) rotate(4deg); } }
+    .modal-name { font-size: 27px; font-weight: 800; color: var(--primary); margin: 10px 0 2px; }
+    .modal-compliment { font-size: 18px; line-height: 1.5; margin: 8px 0 6px; }
+    .modal-score { font-size: 15px; color: var(--muted); margin-bottom: 22px; }
+    .modal-close {
+      background: var(--primary); color: #fff; border: none;
+      padding: 12px 28px; border-radius: 999px; font-size: 16px; font-weight: 600; cursor: pointer;
+    }
   </style>
 </head>
 <body>
+  <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()" title="החלף מצב תצוגה" aria-label="החלף מצב תצוגה">🌙</button>
   <canvas id="confetti-canvas" style="position:fixed;inset:0;pointer-events:none;z-index:9999;"></canvas>
 
   <div class="container">
@@ -218,6 +305,17 @@
 
   </div>
 
+  <!-- CELEBRATION POPUP -->
+  <div id="celebration" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div id="cel-emoji" class="modal-emoji">🏆</div>
+      <div id="cel-name" class="modal-name"></div>
+      <div id="cel-compliment" class="modal-compliment"></div>
+      <div id="cel-score" class="modal-score"></div>
+      <button class="modal-close" onclick="closeCelebration()">יש! 🎉</button>
+    </div>
+  </div>
+
   <script>
     const FILES = [
       { file: "verbal.json",       name: "חשיבה מילולית" },
@@ -228,6 +326,20 @@
     const EXAM_SECONDS = 10 * 60;
 
     let playerName = "";
+
+    /* ---------- THEME ---------- */
+    function syncThemeIcon() {
+      const dark = document.documentElement.getAttribute("data-theme") === "dark";
+      document.getElementById("theme-toggle").innerText = dark ? "☀️" : "🌙";
+    }
+    function toggleTheme() {
+      const dark = document.documentElement.getAttribute("data-theme") === "dark";
+      const next = dark ? "light" : "dark";
+      document.documentElement.setAttribute("data-theme", next);
+      try { localStorage.setItem("hnunin_theme", next); } catch (e) {}
+      syncThemeIcon();
+    }
+    syncThemeIcon();
 
     function shuffle(a) {
       for (let i = a.length - 1; i > 0; i--) {
@@ -451,11 +563,14 @@
           `<div class="q">${i + 1}. ${escapeHtml(q.question)}</div>` +
           `<div class="line">תשובתך: <span class="${isOk ? "ok" : "bad"}">${escapeHtml(chosenText)}</span></div>` +
           (isOk ? "" : `<div class="line">התשובה הנכונה: <span class="ok">${escapeHtml(q.options[q.answer])}</span></div>`) +
-          `<div class="line" style="color:#6b7280">${escapeHtml(q.explanation)}</div>`;
+          `<div class="line" style="color:var(--muted)">${escapeHtml(q.explanation)}</div>`;
         rev.appendChild(item);
       });
 
       show("screen-results");
+      if (pct >= GOOD_THRESHOLD) {
+        setTimeout(() => showCelebration(playerName, `ציון ${pct}% · ${correct}/${total}`), 350);
+      }
     }
     function praise(pct) {
       if (pct === 100) return "מושלם! 🏆";
@@ -533,11 +648,54 @@
           `</summary>` +
           `<div class="line" style="margin-top:8px;">🗓️ נערך: ${fmtDateTime(r.dateISO)}</div>` +
           `<div class="line">⏱️ משך: ${fmtDuration(r.durationSec || 0)}</div>` +
-          `<div class="line" style="color:#6b7280">${escapeHtml(topics)}</div>`;
+          `<div class="line" style="color:var(--muted)">${escapeHtml(topics)}</div>`;
         list.appendChild(d);
       });
       show("screen-history");
     }
+
+    /* ---------- CELEBRATION POPUP ---------- */
+    const GOOD_THRESHOLD = 80;
+    const CEL_EMOJIS = ["🏆","🌟","🎉","🥳","🚀","💫","⭐","🎊"];
+    const COMPLIMENTS = [
+      "פשוט מדהים! יש לך ראש חד כמו תער.",
+      "וואו! אלוף/ת חשיבה אמיתי/ת.",
+      "מוח על! ממשיכים ככה.",
+      "כל הכבוד, עבודה יסודית ומרשימה!",
+      "גאון/ה! המורים גאים בך.",
+      "איזה ביצוע! אתה/את כוכב/ת.",
+      "מצוין! החשיבה שלך פשוט זורמת.",
+      "בול בפוני! דיוק של אלופים.",
+      "ראש גדול! פתרת את זה כמו מקצוען/ית.",
+      "מרשים ביותר! ממש חוכמה על.",
+      "יופי של עבודה! אתה/את בכיוון מנצח.",
+      "כל הכבוד! ההתמדה שלך משתלמת."
+    ];
+    function pick(arr) { return arr[(Math.random() * arr.length) | 0]; }
+
+    function showCelebration(name, scoreLine) {
+      document.getElementById("cel-emoji").innerText = pick(CEL_EMOJIS);
+      document.getElementById("cel-name").innerText = name ? `כל הכבוד, ${name}!` : "כל הכבוד!";
+      document.getElementById("cel-compliment").innerText = pick(COMPLIMENTS);
+      document.getElementById("cel-score").innerText = scoreLine || "";
+      document.getElementById("celebration").classList.remove("hidden");
+      celebrationBurst();
+    }
+    function closeCelebration() {
+      document.getElementById("celebration").classList.add("hidden");
+    }
+    function celebrationBurst() {
+      fireConfetti();
+      setTimeout(fireConfetti, 250);
+      setTimeout(fireConfetti, 550);
+    }
+
+    /* Easter egg: click the start-screen title to preview a random compliment */
+    document.addEventListener("DOMContentLoaded", () => {
+      const title = document.querySelector("#screen-start h1");
+      if (title) title.addEventListener("click", () =>
+        showCelebration(playerName || "אלוף/ה", "תצוגה מקדימה של מחמאה 😉"));
+    });
 
     /* ---------- CONFETTI ---------- */
     const confettiCanvas = document.getElementById("confetti-canvas");
