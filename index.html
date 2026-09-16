@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>אימון למבחני מחוננים ומצוינות</title>
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --bg: #f3f4f6;
+      --card: #ffffff;
+      --text: #1f2937;
+      --success: #10b981;
+      --error: #ef4444;
+    }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
+    .container {
+      max-width: 650px;
+      width: 100%;
+      background: var(--card);
+      padding: 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 12px;
+      margin-bottom: 20px;
+    }
+    .topic-select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      border: 1px solid #d1d5db;
+      font-size: 16px;
+    }
+    .badge {
+      background: #e0e7ff;
+      color: var(--primary);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .question-text {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .btn-option {
+      padding: 12px 16px;
+      border: 1px solid #d1d5db;
+      background: #fff;
+      border-radius: 8px;
+      text-align: right;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-option:hover {
+      background: #f9fafb;
+      border-color: var(--primary);
+    }
+    .btn-option.correct { background: #d1fae5; border-color: var(--success); }
+    .btn-option.incorrect { background: #fee2e2; border-color: var(--error); }
+    .explanation {
+      margin-top: 16px;
+      padding: 12px;
+      background: #f0fdf4;
+      border-right: 4px solid var(--success);
+      border-radius: 4px;
+    }
+    .actions {
+      margin-top: 24px;
+      display: flex;
+      justify-content: flex-end;
+    }
+    .btn-next {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .btn-next:disabled { opacity: 0.5; cursor: not-allowed; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <select id="topic-select" class="topic-select" onchange="loadTopic()">
+      <option value="verbal.json">חשיבה מילולית</option>
+      <option value="quantitative.json">חשיבה כמותית</option>
+      <option value="logic.json">צורות והיגיון</option>
+    </select>
+
+    <div id="quiz-box">
+      <div class="header">
+        <span id="category-badge" class="badge">טוען...</span>
+        <span id="progress-text">שאלה 0 מתוך 0</span>
+      </div>
+      <div id="question" class="question-text">טוען נושא...</div>
+      <div id="options" class="options"></div>
+      <div id="explanation" class="explanation" style="display: none;"></div>
+      <div class="actions">
+        <button id="btn-next" class="btn-next" onclick="nextQuestion()" disabled>השאלה הבאה</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let questions = [];
+    let currentIndex = 0;
+    let selectedOption = null;
+
+    // אלגוריתם ערבוב אקראי (Fisher-Yates Shuffle)
+    function shuffleArray(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+    }
+
+    async function loadTopic() {
+      const file = document.getElementById('topic-select').value;
+      try {
+        const response = await fetch(file);
+        questions = await response.json();
+        
+        // ערבוב אקראי של השאלות
+        shuffleArray(questions);
+        
+        currentIndex = 0;
+        renderQuestion();
+      } catch (e) {
+        document.getElementById('question').innerText = 'שגיאה שטעינת הקובץ (' + file + '). וודא שהוא קיים בתיקייה.';
+      }
+    }
+
+    function renderQuestion() {
+      if (questions.length === 0) return;
+      const q = questions[currentIndex];
+      
+      document.getElementById('category-badge').innerText = q.category;
+      document.getElementById('progress-text').innerText = `שאלה ${currentIndex + 1} מתוך ${questions.length}`;
+      document.getElementById('question').innerText = q.question;
+      
+      const optionsContainer = document.getElementById('options');
+      optionsContainer.innerHTML = '';
+      document.getElementById('explanation').style.display = 'none';
+      document.getElementById('btn-next').disabled = true;
+      selectedOption = null;
+
+      q.options.forEach((opt, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'btn-option';
+        btn.innerText = opt;
+        btn.onclick = () => selectAnswer(idx);
+        optionsContainer.appendChild(btn);
+      });
+    }
+
+    function selectAnswer(index) {
+      if (selectedOption !== null) return;
+      selectedOption = index;
+      
+      const q = questions[currentIndex];
+      const buttons = document.querySelectorAll('.btn-option');
+      
+      buttons.forEach((btn, idx) => {
+        if (idx === q.answer) btn.classList.add('correct');
+        else if (idx === index) btn.classList.add('incorrect');
+      });
+
+      const expBox = document.getElementById('explanation');
+      expBox.innerText = `הסבר: ${q.explanation}`;
+      expBox.style.display = 'block';
+
+      document.getElementById('btn-next').disabled = false;
+    }
+
+    function nextQuestion() {
+      if (currentIndex < questions.length - 1) {
+        currentIndex++;
+        renderQuestion();
+      } else {
+        alert('סיימת את כל השאלות בנושא זה!');
+      }
+    }
+
+    // טעינת הנושא הראשון בהעלאה ראשונית
+    loadTopic();
+  </script>
+</body>
+</html>
