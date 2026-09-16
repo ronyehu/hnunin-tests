@@ -127,6 +127,14 @@
     .ok { color: var(--success); font-weight: bold; }
     .bad { color: var(--error); font-weight: bold; }
     details summary { cursor: pointer; font-weight: bold; margin-bottom: 12px; color: var(--primary); }
+    /* history result color bands */
+    .res-good { border-right: 6px solid var(--success); background: #f0fdf4; }
+    .res-fair { border-right: 6px solid var(--warn);    background: #fffbeb; }
+    .res-bad  { border-right: 6px solid var(--error);   background: #fef2f2; }
+    .pill { padding: 2px 10px; border-radius: 999px; font-weight: bold; font-size: 13px; color: #fff; }
+    .pill-good { background: var(--success); }
+    .pill-fair { background: var(--warn); }
+    .pill-bad  { background: var(--error); }
   </style>
 </head>
 <body>
@@ -143,7 +151,19 @@
         <button class="btn btn-secondary" onclick="startPractice()">מצב אימון</button>
         <button id="btn-exam" class="btn" onclick="startExam()">מבחן (10 דקות)</button>
       </div>
+      <button class="btn btn-secondary" style="width:100%;margin-top:12px;" onclick="showHistory()">היסטוריית תוצאות</button>
       <p class="subtitle" style="margin-top:16px;font-size:13px;">מבחן: 10 שאלות אקראיות מכל נושא (30 בסך הכול), 10 דקות, ציון בסוף.</p>
+    </div>
+
+    <!-- HISTORY SCREEN -->
+    <div id="screen-history" class="hidden">
+      <h1 id="h-title">היסטוריית תוצאות</h1>
+      <p id="h-sub" class="subtitle"></p>
+      <div id="h-list"></div>
+      <div class="actions" style="justify-content:space-between;margin-top:20px;">
+        <button class="btn btn-secondary" onclick="goStart()">← חזרה</button>
+        <button id="h-clear" class="btn btn-secondary" onclick="clearHistory()">נקה היסטוריה</button>
+      </div>
     </div>
 
     <!-- PRACTICE SCREEN -->
@@ -217,7 +237,7 @@
       return a;
     }
     function show(id) {
-      ["screen-start","screen-practice","screen-exam","screen-results"]
+      ["screen-start","screen-practice","screen-exam","screen-results","screen-history"]
         .forEach(s => document.getElementById(s).classList.toggle("hidden", s !== id));
     }
     function onNameInput() {
@@ -288,7 +308,7 @@
     }
 
     /* ---------- EXAM MODE ---------- */
-    let examQ = [], examIndex = 0, examAnswers = [], timerId = null, timeLeft = 0;
+    let examQ = [], examIndex = 0, examAnswers = [], timerId = null, timeLeft = 0, examStartMs = 0;
 
     async function startExam() {
       if (!playerName) {
@@ -356,6 +376,7 @@
     }
 
     function startTimer() {
+      examStartMs = Date.now();
       timeLeft = EXAM_SECONDS;
       updateTimerLabel();
       timerId = setInterval(() => {
@@ -384,6 +405,20 @@
       });
       const total = examQ.length;
       const pct = Math.round((correct / total) * 100);
+      const durationSec = timedOut ? EXAM_SECONDS
+        : Math.min(EXAM_SECONDS, Math.round((Date.now() - examStartMs) / 1000));
+
+      const perTopicPlain = {};
+      FILES.forEach(f => perTopicPlain[f.name] = perTopic[f.name]);
+      const saved = saveResult({
+        id: Date.now(),
+        player: playerName,
+        dateISO: new Date().toISOString(),
+        score: correct, total: total,
+        perTopic: perTopicPlain,
+        durationSec: durationSec,
+        timedOut: timedOut
+      });
 
       document.getElementById("r-title").innerText =
         `כל הכבוד, ${playerName}!`;
@@ -391,6 +426,7 @@
       let sub = `ציון: ${pct}%`;
       if (timedOut) sub += " · הזמן נגמר";
       sub += " · " + praise(pct);
+      if (saved) sub += " · נשמר בהיסטוריה ✓";
       document.getElementById("r-sub").innerText = sub;
 
       const tBox = document.getElementById("r-topics");
@@ -432,6 +468,75 @@
       const d = document.createElement("div");
       d.innerText = s;
       return d.innerHTML;
+    }
+
+    /* ---------- HISTORY (localStorage) ---------- */
+    const STORAGE_KEY = "hnunin_results";
+    const MAX_RESULTS = 100;
+
+    function loadResults() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        const arr = raw ? JSON.parse(raw) : [];
+        return Array.isArray(arr) ? arr : [];
+      } catch (e) { return []; }
+    }
+    function saveResult(r) {
+      try {
+        const arr = loadResults();
+        arr.push(r);
+        while (arr.length > MAX_RESULTS) arr.shift();
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+        return true;
+      } catch (e) { return false; }   // Safari private mode etc.
+    }
+    function clearHistory() {
+      if (!confirm("למחוק את כל היסטוריית התוצאות מהמכשיר הזה?")) return;
+      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
+      showHistory();
+    }
+    function fmtDateTime(iso) {
+      const d = new Date(iso);
+      const p = n => String(n).padStart(2, "0");
+      return `${p(d.getDate())}/${p(d.getMonth() + 1)}/${d.getFullYear()} ${p(d.getHours())}:${p(d.getMinutes())}`;
+    }
+    function fmtDuration(sec) {
+      const m = Math.floor(sec / 60), s = sec % 60;
+      return `${m}:${String(s).padStart(2, "0")} דק'`;
+    }
+    function showHistory() {
+      const all = loadResults().slice().reverse();  // newest first
+      document.getElementById("h-clear").disabled = all.length === 0;
+      const sub = document.getElementById("h-sub");
+      const list = document.getElementById("h-list");
+      list.innerHTML = "";
+      if (!all.length) {
+        sub.innerText = "אין עדיין תוצאות שמורות. סיימו מבחן כדי לשמור תוצאה.";
+        show("screen-history");
+        return;
+      }
+      sub.innerText = `${all.length} תוצאות שמורות במכשיר זה.`;
+      all.forEach(r => {
+        const pct = Math.round((r.score / r.total) * 100);
+        const band = pct >= 80 ? "good" : pct >= 50 ? "fair" : "bad";
+        const topics = FILES.map(f => {
+          const t = r.perTopic && r.perTopic[f.name];
+          return t ? `${f.name}: ${t.correct}/${t.total}` : null;
+        }).filter(Boolean).join(" · ");
+        const d = document.createElement("details");
+        d.className = "review-item res-" + band;
+        d.innerHTML =
+          `<summary style="color:var(--text);margin-bottom:0;display:flex;justify-content:space-between;align-items:center;gap:8px;">` +
+            `<span><b>${escapeHtml(r.player || "—")}</b> · ${r.score}/${r.total}` +
+              (r.timedOut ? " ⏰" : "") + `</span>` +
+            `<span class="pill pill-${band}">${pct}%</span>` +
+          `</summary>` +
+          `<div class="line" style="margin-top:8px;">🗓️ נערך: ${fmtDateTime(r.dateISO)}</div>` +
+          `<div class="line">⏱️ משך: ${fmtDuration(r.durationSec || 0)}</div>` +
+          `<div class="line" style="color:#6b7280">${escapeHtml(topics)}</div>`;
+        list.appendChild(d);
+      });
+      show("screen-history");
     }
 
     /* ---------- CONFETTI ---------- */
