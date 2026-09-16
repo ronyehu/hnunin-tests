@@ -12,6 +12,7 @@
       --text: #1f2937;
       --success: #10b981;
       --error: #ef4444;
+      --warn: #f59e0b;
     }
     body {
       font-family: system-ui, -apple-system, sans-serif;
@@ -38,13 +39,16 @@
       padding-bottom: 12px;
       margin-bottom: 20px;
     }
-    .topic-select {
+    h1 { font-size: 22px; margin: 0 0 4px; }
+    .subtitle { color: #6b7280; margin: 0 0 20px; font-size: 15px; }
+    .topic-select, .text-input {
       width: 100%;
       padding: 10px;
       margin-bottom: 20px;
       border-radius: 8px;
       border: 1px solid #d1d5db;
       font-size: 16px;
+      box-sizing: border-box;
     }
     .badge {
       background: #e0e7ff;
@@ -54,16 +58,22 @@
       font-weight: bold;
       font-size: 14px;
     }
+    .timer {
+      background: #fef3c7;
+      color: #92400e;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-weight: bold;
+      font-size: 15px;
+      font-variant-numeric: tabular-nums;
+    }
+    .timer.low { background: #fee2e2; color: #991b1b; }
     .question-text {
       font-size: 18px;
       font-weight: 600;
       margin-bottom: 20px;
     }
-    .options {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    .options { display: flex; flex-direction: column; gap: 10px; }
     .btn-option {
       padding: 12px 16px;
       border: 1px solid #d1d5db;
@@ -74,12 +84,11 @@
       cursor: pointer;
       transition: all 0.2s;
     }
-    .btn-option:hover {
-      background: #f9fafb;
-      border-color: var(--primary);
-    }
+    .btn-option:hover { background: #f9fafb; border-color: var(--primary); }
+    .btn-option.selected { background: #e0e7ff; border-color: var(--primary); }
     .btn-option.correct { background: #d1fae5; border-color: var(--success); }
     .btn-option.incorrect { background: #fee2e2; border-color: var(--error); }
+    .btn-option:disabled { cursor: default; }
     .explanation {
       margin-top: 16px;
       padding: 12px;
@@ -90,124 +99,337 @@
     .actions {
       margin-top: 24px;
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
     }
-    .btn-next {
+    .btn {
       background: var(--primary);
       color: #fff;
       border: none;
-      padding: 10px 20px;
+      padding: 12px 24px;
       border-radius: 6px;
       font-size: 16px;
       cursor: pointer;
     }
-    .btn-next:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-secondary { background: #e5e7eb; color: var(--text); }
+    .mode-buttons { display: flex; gap: 12px; }
+    .mode-buttons .btn { flex: 1; }
+    .hidden { display: none; }
+    /* results */
+    .score-big { font-size: 48px; font-weight: 800; text-align: center; color: var(--primary); margin: 8px 0; }
+    .score-sub { text-align: center; color: #6b7280; margin-bottom: 20px; }
+    .topic-row { display: flex; justify-content: space-between; padding: 10px 12px; border-radius: 8px; background: #f9fafb; margin-bottom: 8px; font-size: 15px; }
+    .review-item { border: 1px solid #e5e7eb; border-radius: 8px; padding: 12px; margin-bottom: 10px; font-size: 15px; }
+    .review-item .q { font-weight: 600; margin-bottom: 6px; }
+    .review-item .line { margin: 2px 0; }
+    .ok { color: var(--success); font-weight: bold; }
+    .bad { color: var(--error); font-weight: bold; }
+    details summary { cursor: pointer; font-weight: bold; margin-bottom: 12px; color: var(--primary); }
   </style>
 </head>
 <body>
   <div class="container">
-    <select id="topic-select" class="topic-select" onchange="loadTopic()">
-      <option value="verbal.json">חשיבה מילולית</option>
-      <option value="quantitative.json">חשיבה כמותית</option>
-      <option value="logic.json">צורות והיגיון</option>
-    </select>
 
-    <div id="quiz-box">
-      <div class="header">
-        <span id="category-badge" class="badge">טוען...</span>
-        <span id="progress-text">שאלה 0 מתוך 0</span>
+    <!-- START SCREEN -->
+    <div id="screen-start">
+      <h1>אימון למבחני מחוננים ומצוינות</h1>
+      <p class="subtitle">בחרו שם, ואז מצב אימון או מבחן.</p>
+      <input id="player-name" class="text-input" type="text" placeholder="מה השם שלך?" maxlength="30" oninput="onNameInput()">
+      <div class="mode-buttons">
+        <button class="btn btn-secondary" onclick="startPractice()">מצב אימון</button>
+        <button id="btn-exam" class="btn" onclick="startExam()">מבחן (10 דקות)</button>
       </div>
-      <div id="question" class="question-text">טוען נושא...</div>
-      <div id="options" class="options"></div>
-      <div id="explanation" class="explanation" style="display: none;"></div>
+      <p class="subtitle" style="margin-top:16px;font-size:13px;">מבחן: 10 שאלות אקראיות מכל נושא (30 בסך הכול), 10 דקות, ציון בסוף.</p>
+    </div>
+
+    <!-- PRACTICE SCREEN -->
+    <div id="screen-practice" class="hidden">
+      <select id="topic-select" class="topic-select" onchange="loadTopic()">
+        <option value="verbal.json">חשיבה מילולית</option>
+        <option value="quantitative.json">חשיבה כמותית</option>
+        <option value="logic.json">צורות והיגיון</option>
+      </select>
+      <div class="header">
+        <span id="p-badge" class="badge">טוען...</span>
+        <span id="p-progress">שאלה 0 מתוך 0</span>
+      </div>
+      <div id="p-question" class="question-text">טוען נושא...</div>
+      <div id="p-options" class="options"></div>
+      <div id="p-explanation" class="explanation hidden"></div>
       <div class="actions">
-        <button id="btn-next" class="btn-next" onclick="nextQuestion()" disabled>השאלה הבאה</button>
+        <button class="btn btn-secondary" onclick="goStart()">← חזרה</button>
+        <button id="p-next" class="btn" onclick="pNext()" disabled>השאלה הבאה</button>
       </div>
     </div>
+
+    <!-- EXAM SCREEN -->
+    <div id="screen-exam" class="hidden">
+      <div class="header">
+        <span id="e-badge" class="badge">מבחן</span>
+        <span id="e-timer" class="timer">10:00</span>
+      </div>
+      <div id="e-progress" class="subtitle" style="margin:0 0 12px;">שאלה 1 מתוך 30</div>
+      <div id="e-question" class="question-text"></div>
+      <div id="e-options" class="options"></div>
+      <div class="actions">
+        <button class="btn btn-secondary" onclick="confirmFinish()">סיים עכשיו</button>
+        <button id="e-next" class="btn" onclick="eNext()" disabled>הבא</button>
+      </div>
+    </div>
+
+    <!-- RESULTS SCREEN -->
+    <div id="screen-results" class="hidden">
+      <h1 id="r-title">התוצאות</h1>
+      <div id="r-score" class="score-big">0/30</div>
+      <div id="r-sub" class="score-sub"></div>
+      <div id="r-topics"></div>
+      <details>
+        <summary>סקירת התשובות</summary>
+        <div id="r-review"></div>
+      </details>
+      <div class="actions" style="justify-content:center;margin-top:20px;">
+        <button class="btn" onclick="goStart()">חזרה למסך הפתיחה</button>
+      </div>
+    </div>
+
   </div>
 
   <script>
-    let questions = [];
-    let currentIndex = 0;
-    let selectedOption = null;
+    const FILES = [
+      { file: "verbal.json",       name: "חשיבה מילולית" },
+      { file: "quantitative.json", name: "חשיבה כמותית" },
+      { file: "logic.json",        name: "צורות והיגיון" }
+    ];
+    const EXAM_PER_TOPIC = 10;
+    const EXAM_SECONDS = 10 * 60;
 
-    // אלגוריתם ערבוב אקראי (Fisher-Yates Shuffle)
-    function shuffleArray(array) {
-      for (let i = array.length - 1; i > 0; i--) {
+    let playerName = "";
+
+    function shuffle(a) {
+      for (let i = a.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
-        [array[i], array[j]] = [array[j], array[i]];
+        [a[i], a[j]] = [a[j], a[i]];
       }
+      return a;
+    }
+    function show(id) {
+      ["screen-start","screen-practice","screen-exam","screen-results"]
+        .forEach(s => document.getElementById(s).classList.toggle("hidden", s !== id));
+    }
+    function onNameInput() {
+      playerName = document.getElementById("player-name").value.trim();
+    }
+    function goStart() {
+      stopTimer();
+      show("screen-start");
     }
 
+    /* ---------- PRACTICE MODE ---------- */
+    let pQuestions = [], pIndex = 0, pSelected = null;
+
+    function startPractice() {
+      show("screen-practice");
+      loadTopic();
+    }
     async function loadTopic() {
-      const file = document.getElementById('topic-select').value;
+      const file = document.getElementById("topic-select").value;
       try {
-        const response = await fetch(file);
-        questions = await response.json();
-        
-        // ערבוב אקראי של השאלות
-        shuffleArray(questions);
-        
-        currentIndex = 0;
-        renderQuestion();
+        const res = await fetch(file);
+        pQuestions = shuffle(await res.json());
+        pIndex = 0;
+        pRender();
       } catch (e) {
-        document.getElementById('question').innerText = 'שגיאה שטעינת הקובץ (' + file + '). וודא שהוא קיים בתיקייה.';
+        document.getElementById("p-question").innerText =
+          "שגיאה בטעינת הקובץ (" + file + ").";
       }
     }
-
-    function renderQuestion() {
-      if (questions.length === 0) return;
-      const q = questions[currentIndex];
-      
-      document.getElementById('category-badge').innerText = q.category;
-      document.getElementById('progress-text').innerText = `שאלה ${currentIndex + 1} מתוך ${questions.length}`;
-      document.getElementById('question').innerText = q.question;
-      
-      const optionsContainer = document.getElementById('options');
-      optionsContainer.innerHTML = '';
-      document.getElementById('explanation').style.display = 'none';
-      document.getElementById('btn-next').disabled = true;
-      selectedOption = null;
-
+    function pRender() {
+      if (!pQuestions.length) return;
+      const q = pQuestions[pIndex];
+      document.getElementById("p-badge").innerText = q.category;
+      document.getElementById("p-progress").innerText =
+        `שאלה ${pIndex + 1} מתוך ${pQuestions.length}`;
+      document.getElementById("p-question").innerText = q.question;
+      const box = document.getElementById("p-options");
+      box.innerHTML = "";
+      document.getElementById("p-explanation").classList.add("hidden");
+      document.getElementById("p-next").disabled = true;
+      pSelected = null;
       q.options.forEach((opt, idx) => {
-        const btn = document.createElement('button');
-        btn.className = 'btn-option';
+        const btn = document.createElement("button");
+        btn.className = "btn-option";
         btn.innerText = opt;
-        btn.onclick = () => selectAnswer(idx);
-        optionsContainer.appendChild(btn);
+        btn.onclick = () => pAnswer(idx);
+        box.appendChild(btn);
       });
     }
-
-    function selectAnswer(index) {
-      if (selectedOption !== null) return;
-      selectedOption = index;
-      
-      const q = questions[currentIndex];
-      const buttons = document.querySelectorAll('.btn-option');
-      
-      buttons.forEach((btn, idx) => {
-        if (idx === q.answer) btn.classList.add('correct');
-        else if (idx === index) btn.classList.add('incorrect');
+    function pAnswer(index) {
+      if (pSelected !== null) return;
+      pSelected = index;
+      const q = pQuestions[pIndex];
+      document.querySelectorAll("#p-options .btn-option").forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === q.answer) btn.classList.add("correct");
+        else if (idx === index) btn.classList.add("incorrect");
       });
-
-      const expBox = document.getElementById('explanation');
-      expBox.innerText = `הסבר: ${q.explanation}`;
-      expBox.style.display = 'block';
-
-      document.getElementById('btn-next').disabled = false;
+      const exp = document.getElementById("p-explanation");
+      exp.innerText = "הסבר: " + q.explanation;
+      exp.classList.remove("hidden");
+      document.getElementById("p-next").disabled = false;
+    }
+    function pNext() {
+      if (pIndex < pQuestions.length - 1) { pIndex++; pRender(); }
+      else alert("סיימת את כל השאלות בנושא זה!");
     }
 
-    function nextQuestion() {
-      if (currentIndex < questions.length - 1) {
-        currentIndex++;
-        renderQuestion();
-      } else {
-        alert('סיימת את כל השאלות בנושא זה!');
+    /* ---------- EXAM MODE ---------- */
+    let examQ = [], examIndex = 0, examAnswers = [], timerId = null, timeLeft = 0;
+
+    async function startExam() {
+      if (!playerName) {
+        alert("נא להזין שם לפני תחילת המבחן.");
+        document.getElementById("player-name").focus();
+        return;
+      }
+      const btn = document.getElementById("btn-exam");
+      btn.disabled = true; btn.innerText = "טוען מבחן...";
+      try {
+        const banks = await Promise.all(
+          FILES.map(f => fetch(f.file).then(r => r.json()))
+        );
+        examQ = [];
+        banks.forEach(bank => {
+          examQ.push(...shuffle(bank.slice()).slice(0, EXAM_PER_TOPIC));
+        });
+        shuffle(examQ);
+        examIndex = 0;
+        examAnswers = new Array(examQ.length).fill(null);
+        show("screen-exam");
+        eRender();
+        startTimer();
+      } catch (e) {
+        alert("שגיאה בטעינת שאלות המבחן.");
+      } finally {
+        btn.disabled = false; btn.innerText = "מבחן (10 דקות)";
       }
     }
+    function eRender() {
+      const q = examQ[examIndex];
+      document.getElementById("e-badge").innerText = q.category;
+      document.getElementById("e-progress").innerText =
+        `שאלה ${examIndex + 1} מתוך ${examQ.length}`;
+      document.getElementById("e-question").innerText = q.question;
+      const box = document.getElementById("e-options");
+      box.innerHTML = "";
+      q.options.forEach((opt, idx) => {
+        const b = document.createElement("button");
+        b.className = "btn-option" + (examAnswers[examIndex] === idx ? " selected" : "");
+        b.innerText = opt;
+        b.onclick = () => eSelect(idx);
+        box.appendChild(b);
+      });
+      document.getElementById("e-next").disabled = examAnswers[examIndex] === null;
+      document.getElementById("e-next").innerText =
+        examIndex === examQ.length - 1 ? "סיום מבחן" : "הבא";
+    }
+    function eSelect(idx) {
+      examAnswers[examIndex] = idx;
+      document.querySelectorAll("#e-options .btn-option").forEach((b, i) =>
+        b.classList.toggle("selected", i === idx));
+      document.getElementById("e-next").disabled = false;
+    }
+    function eNext() {
+      if (examIndex < examQ.length - 1) { examIndex++; eRender(); }
+      else finishExam(false);
+    }
+    function confirmFinish() {
+      const answered = examAnswers.filter(a => a !== null).length;
+      const msg = answered < examQ.length
+        ? `לסיים את המבחן? ענית על ${answered} מתוך ${examQ.length} שאלות.`
+        : "לסיים את המבחן ולראות את התוצאה?";
+      if (confirm(msg)) finishExam(false);
+    }
 
-    // טעינת הנושא הראשון בהעלאה ראשונית
-    loadTopic();
+    function startTimer() {
+      timeLeft = EXAM_SECONDS;
+      updateTimerLabel();
+      timerId = setInterval(() => {
+        timeLeft--;
+        updateTimerLabel();
+        if (timeLeft <= 0) finishExam(true);
+      }, 1000);
+    }
+    function stopTimer() { if (timerId) { clearInterval(timerId); timerId = null; } }
+    function updateTimerLabel() {
+      const m = Math.floor(timeLeft / 60);
+      const s = timeLeft % 60;
+      const el = document.getElementById("e-timer");
+      el.innerText = `${m}:${String(s).padStart(2, "0")}`;
+      el.classList.toggle("low", timeLeft <= 60);
+    }
+
+    function finishExam(timedOut) {
+      stopTimer();
+      let correct = 0;
+      const perTopic = {};
+      FILES.forEach(f => perTopic[f.name] = { correct: 0, total: 0 });
+      examQ.forEach((q, i) => {
+        perTopic[q.category].total++;
+        if (examAnswers[i] === q.answer) { correct++; perTopic[q.category].correct++; }
+      });
+      const total = examQ.length;
+      const pct = Math.round((correct / total) * 100);
+
+      document.getElementById("r-title").innerText =
+        `כל הכבוד, ${playerName}!`;
+      document.getElementById("r-score").innerText = `${correct}/${total}`;
+      let sub = `ציון: ${pct}%`;
+      if (timedOut) sub += " · הזמן נגמר";
+      sub += " · " + praise(pct);
+      document.getElementById("r-sub").innerText = sub;
+
+      const tBox = document.getElementById("r-topics");
+      tBox.innerHTML = "";
+      FILES.forEach(f => {
+        const t = perTopic[f.name];
+        const row = document.createElement("div");
+        row.className = "topic-row";
+        row.innerHTML = `<span>${f.name}</span><span>${t.correct}/${t.total}</span>`;
+        tBox.appendChild(row);
+      });
+
+      const rev = document.getElementById("r-review");
+      rev.innerHTML = "";
+      examQ.forEach((q, i) => {
+        const chosen = examAnswers[i];
+        const isOk = chosen === q.answer;
+        const item = document.createElement("div");
+        item.className = "review-item";
+        const chosenText = chosen === null ? "לא נענתה" : q.options[chosen];
+        item.innerHTML =
+          `<div class="q">${i + 1}. ${escapeHtml(q.question)}</div>` +
+          `<div class="line">תשובתך: <span class="${isOk ? "ok" : "bad"}">${escapeHtml(chosenText)}</span></div>` +
+          (isOk ? "" : `<div class="line">התשובה הנכונה: <span class="ok">${escapeHtml(q.options[q.answer])}</span></div>`) +
+          `<div class="line" style="color:#6b7280">${escapeHtml(q.explanation)}</div>`;
+        rev.appendChild(item);
+      });
+
+      show("screen-results");
+    }
+    function praise(pct) {
+      if (pct === 100) return "מושלם! 🏆";
+      if (pct >= 80) return "מצוין! 🌟";
+      if (pct >= 60) return "יפה מאוד! 👍";
+      if (pct >= 40) return "בדרך הנכונה 💪";
+      return "כדאי להמשיך להתאמן 📚";
+    }
+    function escapeHtml(s) {
+      const d = document.createElement("div");
+      d.innerText = s;
+      return d.innerHTML;
+    }
   </script>
 </body>
 </html>
