@@ -221,6 +221,31 @@
       background: var(--primary); color: #fff; border: none;
       padding: 12px 28px; border-radius: 999px; font-size: 16px; font-weight: 600; cursor: pointer;
     }
+    /* difficulty selector */
+    .field-label { font-size: 14px; font-weight: 600; color: var(--muted); margin: 4px 0 8px; }
+    .diff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+    .diff-btn {
+      padding: 12px; border: 2px solid var(--input-border); background: var(--opt-bg); color: var(--text);
+      border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all .15s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .diff-btn:hover { border-color: var(--primary); }
+    .diff-btn.active { border-color: var(--primary); background: var(--badge-bg); color: var(--primary); }
+    .diff-emoji { font-size: 18px; }
+    /* instruction + type */
+    .qmeta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
+    .type-badge { background: var(--soft); color: var(--muted); padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+    .instruction { font-size: 14px; color: var(--muted); margin-bottom: 14px; line-height: 1.5; }
+    /* hint */
+    .hint-box {
+      margin-top: 14px; padding: 12px; border-radius: 8px;
+      background: #fef9c3; border-right: 4px solid var(--warn); color: #713f12;
+    }
+    html[data-theme="dark"] .hint-box { background: #3b2f14; color: #fde68a; }
+    .btn-hint { background: transparent; color: var(--warn); border: 1px solid var(--warn); padding: 8px 16px; border-radius: 6px; font-size: 14px; font-weight: 600; cursor: pointer; }
+    .wrong-why { margin-top: 10px; padding: 10px 12px; background: #fef2f2; border-right: 4px solid var(--error); border-radius: 4px; color: #7f1d1d; }
+    html[data-theme="dark"] .wrong-why { background: #3b1a1a; color: #fecaca; }
+    .actions-3 { display: flex; gap: 8px; }
   </style>
 </head>
 <body>
@@ -232,14 +257,21 @@
     <!-- START SCREEN -->
     <div id="screen-start">
       <h1>אימון למבחני מחוננים ומצוינות</h1>
-      <p class="subtitle">בחרו שם, ואז מצב אימון או מבחן.</p>
+      <p class="subtitle">בחרו שם ורמת קושי, ואז מצב אימון או מבחן.</p>
       <input id="player-name" class="text-input" type="text" placeholder="מה השם שלך?" maxlength="30" oninput="onNameInput()">
+      <div class="field-label">רמת קושי:</div>
+      <div id="diff-grid" class="diff-grid">
+        <button class="diff-btn" data-diff="קל"    onclick="selectDifficulty('קל')"><span class="diff-emoji">🌱</span> קל</button>
+        <button class="diff-btn" data-diff="בינוני" onclick="selectDifficulty('בינוני')"><span class="diff-emoji">💪</span> בינוני</button>
+        <button class="diff-btn" data-diff="קשה"   onclick="selectDifficulty('קשה')"><span class="diff-emoji">🔥</span> קשה</button>
+        <button class="diff-btn" data-diff="מומחה" onclick="selectDifficulty('מומחה')"><span class="diff-emoji">🧠</span> מומחה</button>
+      </div>
       <div class="mode-buttons">
         <button class="btn btn-secondary" onclick="startPractice()">מצב אימון</button>
         <button id="btn-exam" class="btn" onclick="startExam()">מבחן (10 דקות)</button>
       </div>
       <button class="btn btn-secondary" style="width:100%;margin-top:12px;" onclick="showHistory()">היסטוריית תוצאות</button>
-      <p class="subtitle" style="margin-top:16px;font-size:13px;">מבחן: 10 שאלות אקראיות מכל נושא (30 בסך הכול), 10 דקות, ציון בסוף.</p>
+      <p class="subtitle" style="margin-top:16px;font-size:13px;">מבחן: 10 שאלות אקראיות מכל נושא (30 בסך הכול) ברמה שנבחרה, 10 דקות, ציון בסוף.</p>
     </div>
 
     <!-- HISTORY SCREEN -->
@@ -264,12 +296,23 @@
         <span id="p-badge" class="badge">טוען...</span>
         <span id="p-progress">שאלה 0 מתוך 0</span>
       </div>
+      <div class="qmeta">
+        <span id="p-type" class="type-badge"></span>
+      </div>
+      <div id="p-instruction" class="instruction"></div>
       <div id="p-question" class="question-text">טוען נושא...</div>
       <div id="p-options" class="options"></div>
+      <div style="margin-top:14px;">
+        <button id="p-hint-btn" class="btn-hint" onclick="pShowHint()">💡 רמז</button>
+      </div>
+      <div id="p-hint" class="hint-box hidden"></div>
       <div id="p-explanation" class="explanation hidden"></div>
       <div class="actions">
-        <button class="btn btn-secondary" onclick="goStart()">← חזרה</button>
-        <button id="p-next" class="btn" onclick="pNext()" disabled>השאלה הבאה</button>
+        <button class="btn btn-secondary" onclick="goStart()">← יציאה</button>
+        <div class="actions-3">
+          <button id="p-prev" class="btn btn-secondary" onclick="pPrev()" disabled>הקודם</button>
+          <button id="p-next" class="btn" onclick="pNext()" disabled>הבא</button>
+        </div>
       </div>
     </div>
 
@@ -279,12 +322,19 @@
         <span id="e-badge" class="badge">מבחן</span>
         <span id="e-timer" class="timer">10:00</span>
       </div>
-      <div id="e-progress" class="subtitle" style="margin:0 0 12px;">שאלה 1 מתוך 30</div>
+      <div id="e-progress" class="subtitle" style="margin:0 0 6px;">שאלה 1 מתוך 30</div>
+      <div class="qmeta">
+        <span id="e-type" class="type-badge"></span>
+      </div>
+      <div id="e-instruction" class="instruction"></div>
       <div id="e-question" class="question-text"></div>
       <div id="e-options" class="options"></div>
       <div class="actions">
         <button class="btn btn-secondary" onclick="confirmFinish()">סיים עכשיו</button>
-        <button id="e-next" class="btn" onclick="eNext()" disabled>הבא</button>
+        <div class="actions-3">
+          <button id="e-prev" class="btn btn-secondary" onclick="ePrev()" disabled>הקודם</button>
+          <button id="e-next" class="btn" onclick="eNext()" disabled>הבא</button>
+        </div>
       </div>
     </div>
 
@@ -324,8 +374,23 @@
     ];
     const EXAM_PER_TOPIC = 10;
     const EXAM_SECONDS = 10 * 60;
+    const DIFF_EMOJI = { "קל": "🌱", "בינוני": "💪", "קשה": "🔥", "מומחה": "🧠" };
 
     let playerName = "";
+    let selectedDifficulty = "בינוני";
+
+    function selectDifficulty(d) {
+      selectedDifficulty = d;
+      document.querySelectorAll("#diff-grid .diff-btn").forEach(b =>
+        b.classList.toggle("active", b.getAttribute("data-diff") === d));
+    }
+    function diffLabel(d) { return (DIFF_EMOJI[d] || "") + " " + d; }
+    function scrollTop() { window.scrollTo(0, 0); }
+    // filter a bank by the selected difficulty; fall back to whole bank if too few
+    function byDifficulty(bank, need) {
+      const f = bank.filter(q => q.difficulty === selectedDifficulty);
+      return f.length >= (need || 1) ? f : (f.length ? f : bank.slice());
+    }
 
     /* ---------- THEME ---------- */
     function syncThemeIcon() {
@@ -361,7 +426,7 @@
     }
 
     /* ---------- PRACTICE MODE ---------- */
-    let pQuestions = [], pIndex = 0, pSelected = null;
+    let pQuestions = [], pIndex = 0, pAnswers = [];  // pAnswers[i] = chosen index or null
 
     function startPractice() {
       show("screen-practice");
@@ -369,54 +434,104 @@
     }
     async function loadTopic() {
       const file = document.getElementById("topic-select").value;
+      const qEl = document.getElementById("p-question");
+      qEl.innerText = "טוען שאלות...";
       try {
         const res = await fetch(file);
-        pQuestions = shuffle(await res.json());
+        const bank = await res.json();
+        pQuestions = shuffle(byDifficulty(bank).slice());
         pIndex = 0;
+        pAnswers = new Array(pQuestions.length).fill(null);
         pRender();
       } catch (e) {
-        document.getElementById("p-question").innerText =
-          "שגיאה בטעינת הקובץ (" + file + ").";
+        qEl.innerText = "שגיאה בטעינת הקובץ (" + file + ").";
       }
     }
     function pRender() {
-      if (!pQuestions.length) return;
+      if (!pQuestions.length) { document.getElementById("p-question").innerText = "אין שאלות ברמה זו."; return; }
       const q = pQuestions[pIndex];
-      document.getElementById("p-badge").innerText = q.category;
-      document.getElementById("p-progress").innerText =
-        `שאלה ${pIndex + 1} מתוך ${pQuestions.length}`;
+      const answered = pAnswers[pIndex];
+      document.getElementById("p-badge").innerText = q.category + " · " + diffLabel(q.difficulty || selectedDifficulty);
+      document.getElementById("p-progress").innerText = `שאלה ${pIndex + 1} מתוך ${pQuestions.length}`;
+      document.getElementById("p-type").innerText = q.type || "";
+      document.getElementById("p-instruction").innerText = q.instruction || "";
       document.getElementById("p-question").innerText = q.question;
+
+      // hint reset
+      const hintBox = document.getElementById("p-hint");
+      hintBox.classList.add("hidden");
+      document.getElementById("p-hint-btn").classList.toggle("hidden", !q.hint);
+
       const box = document.getElementById("p-options");
       box.innerHTML = "";
-      document.getElementById("p-explanation").classList.add("hidden");
-      document.getElementById("p-next").disabled = true;
-      pSelected = null;
       q.options.forEach((opt, idx) => {
         const btn = document.createElement("button");
         btn.className = "btn-option";
         btn.innerText = opt;
-        btn.onclick = () => pAnswer(idx);
+        if (answered === null) {
+          btn.onclick = () => pAnswer(idx);
+        } else {
+          btn.disabled = true;
+          if (idx === q.answer) btn.classList.add("correct");
+          else if (idx === answered) btn.classList.add("incorrect");
+        }
         box.appendChild(btn);
       });
+
+      if (answered === null) pHideExplanation();
+      else pShowExplanation(q, answered);
+
+      document.getElementById("p-prev").disabled = pIndex === 0;
+      document.getElementById("p-next").disabled = false;
+      document.getElementById("p-next").innerText =
+        pIndex === pQuestions.length - 1 ? "סיום" : "הבא";
+      scrollTop();
+    }
+    function pHideExplanation() {
+      document.getElementById("p-explanation").classList.add("hidden");
+      const w = document.getElementById("p-wrong-why");
+      if (w) w.remove();
+    }
+    function pShowExplanation(q, chosen) {
+      const exp = document.getElementById("p-explanation");
+      exp.innerText = "הסבר: " + q.explanation;
+      exp.classList.remove("hidden");
+      // remove old wrong-why
+      const old = document.getElementById("p-wrong-why");
+      if (old) old.remove();
+      if (chosen !== q.answer) {
+        const why = (q.wrongExplanations && q.wrongExplanations[chosen]) || "";
+        const div = document.createElement("div");
+        div.id = "p-wrong-why";
+        div.className = "wrong-why";
+        div.innerText = "למה לא: " + (why || "זו אינה התשובה הנכונה.");
+        exp.parentNode.insertBefore(div, exp);
+      }
     }
     function pAnswer(index) {
-      if (pSelected !== null) return;
-      pSelected = index;
+      if (pAnswers[pIndex] !== null) return;
+      pAnswers[pIndex] = index;
       const q = pQuestions[pIndex];
       document.querySelectorAll("#p-options .btn-option").forEach((btn, idx) => {
         btn.disabled = true;
         if (idx === q.answer) btn.classList.add("correct");
         else if (idx === index) btn.classList.add("incorrect");
       });
-      const exp = document.getElementById("p-explanation");
-      exp.innerText = "הסבר: " + q.explanation;
-      exp.classList.remove("hidden");
-      document.getElementById("p-next").disabled = false;
+      pShowExplanation(q, index);
       if (index === q.answer) fireConfetti();
+    }
+    function pShowHint() {
+      const q = pQuestions[pIndex];
+      const box = document.getElementById("p-hint");
+      box.innerText = "💡 " + (q.hint || "אין רמז לשאלה זו.");
+      box.classList.remove("hidden");
+    }
+    function pPrev() {
+      if (pIndex > 0) { pIndex--; pRender(); }
     }
     function pNext() {
       if (pIndex < pQuestions.length - 1) { pIndex++; pRender(); }
-      else alert("סיימת את כל השאלות בנושא זה!");
+      else { alert("סיימת את כל השאלות בנושא זה!"); goStart(); }
     }
 
     /* ---------- EXAM MODE ---------- */
@@ -436,7 +551,7 @@
         );
         examQ = [];
         banks.forEach(bank => {
-          examQ.push(...shuffle(bank.slice()).slice(0, EXAM_PER_TOPIC));
+          examQ.push(...shuffle(byDifficulty(bank, EXAM_PER_TOPIC).slice()).slice(0, EXAM_PER_TOPIC));
         });
         shuffle(examQ);
         examIndex = 0;
@@ -452,9 +567,11 @@
     }
     function eRender() {
       const q = examQ[examIndex];
-      document.getElementById("e-badge").innerText = q.category;
+      document.getElementById("e-badge").innerText = "מבחן · " + diffLabel(selectedDifficulty);
       document.getElementById("e-progress").innerText =
-        `שאלה ${examIndex + 1} מתוך ${examQ.length}`;
+        `שאלה ${examIndex + 1} מתוך ${examQ.length} · ${q.category}`;
+      document.getElementById("e-type").innerText = q.type || "";
+      document.getElementById("e-instruction").innerText = q.instruction || "";
       document.getElementById("e-question").innerText = q.question;
       const box = document.getElementById("e-options");
       box.innerHTML = "";
@@ -465,15 +582,20 @@
         b.onclick = () => eSelect(idx);
         box.appendChild(b);
       });
+      document.getElementById("e-prev").disabled = examIndex === 0;
       document.getElementById("e-next").disabled = examAnswers[examIndex] === null;
       document.getElementById("e-next").innerText =
         examIndex === examQ.length - 1 ? "סיום מבחן" : "הבא";
+      scrollTop();
     }
     function eSelect(idx) {
       examAnswers[examIndex] = idx;
       document.querySelectorAll("#e-options .btn-option").forEach((b, i) =>
         b.classList.toggle("selected", i === idx));
       document.getElementById("e-next").disabled = false;
+    }
+    function ePrev() {
+      if (examIndex > 0) { examIndex--; eRender(); }
     }
     function eNext() {
       if (examIndex < examQ.length - 1) { examIndex++; eRender(); }
@@ -529,13 +651,14 @@
         score: correct, total: total,
         perTopic: perTopicPlain,
         durationSec: durationSec,
-        timedOut: timedOut
+        timedOut: timedOut,
+        difficulty: selectedDifficulty
       });
 
       document.getElementById("r-title").innerText =
         `כל הכבוד, ${playerName}!`;
       document.getElementById("r-score").innerText = `${correct}/${total}`;
-      let sub = `ציון: ${pct}%`;
+      let sub = `ציון: ${pct}% · רמה: ${diffLabel(selectedDifficulty)} · זמן: ${fmtDuration(durationSec)}`;
       if (timedOut) sub += " · הזמן נגמר";
       sub += " · " + praise(pct);
       if (saved) sub += " · נשמר בהיסטוריה ✓";
@@ -559,9 +682,12 @@
         const item = document.createElement("div");
         item.className = "review-item";
         const chosenText = chosen === null ? "לא נענתה" : q.options[chosen];
+        const wrongWhy = (!isOk && chosen !== null && q.wrongExplanations && q.wrongExplanations[chosen])
+          ? `<div class="line" style="color:var(--error)">למה לא: ${escapeHtml(q.wrongExplanations[chosen])}</div>` : "";
         item.innerHTML =
           `<div class="q">${i + 1}. ${escapeHtml(q.question)}</div>` +
           `<div class="line">תשובתך: <span class="${isOk ? "ok" : "bad"}">${escapeHtml(chosenText)}</span></div>` +
+          wrongWhy +
           (isOk ? "" : `<div class="line">התשובה הנכונה: <span class="ok">${escapeHtml(q.options[q.answer])}</span></div>`) +
           `<div class="line" style="color:var(--muted)">${escapeHtml(q.explanation)}</div>`;
         rev.appendChild(item);
@@ -648,6 +774,7 @@
           `</summary>` +
           `<div class="line" style="margin-top:8px;">🗓️ נערך: ${fmtDateTime(r.dateISO)}</div>` +
           `<div class="line">⏱️ משך: ${fmtDuration(r.durationSec || 0)}</div>` +
+          (r.difficulty ? `<div class="line">📊 רמה: ${escapeHtml(diffLabel(r.difficulty))}</div>` : "") +
           `<div class="line" style="color:var(--muted)">${escapeHtml(topics)}</div>`;
         list.appendChild(d);
       });
@@ -692,6 +819,7 @@
 
     /* Easter egg: click the start-screen title to preview a random compliment */
     document.addEventListener("DOMContentLoaded", () => {
+      selectDifficulty(selectedDifficulty);   // mark default active
       const title = document.querySelector("#screen-start h1");
       if (title) title.addEventListener("click", () =>
         showCelebration(playerName || "אלוף/ה", "תצוגה מקדימה של מחמאה 😉"));
