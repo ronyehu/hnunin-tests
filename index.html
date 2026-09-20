@@ -223,7 +223,7 @@
     }
     /* difficulty selector */
     .field-label { font-size: 14px; font-weight: 600; color: var(--muted); margin: 4px 0 8px; }
-    .diff-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+    .diff-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
     .diff-btn {
       padding: 12px; border: 2px solid var(--input-border); background: var(--opt-bg); color: var(--text);
       border-radius: 10px; font-size: 15px; font-weight: 600; cursor: pointer; transition: all .15s;
@@ -261,7 +261,6 @@
       <input id="player-name" class="text-input" type="text" placeholder="מה השם שלך?" maxlength="30" oninput="onNameInput()">
       <div class="field-label">רמת קושי:</div>
       <div id="diff-grid" class="diff-grid">
-        <button class="diff-btn" data-diff="קל"    onclick="selectDifficulty('קל')"><span class="diff-emoji">🌱</span> קל</button>
         <button class="diff-btn" data-diff="בינוני" onclick="selectDifficulty('בינוני')"><span class="diff-emoji">💪</span> בינוני</button>
         <button class="diff-btn" data-diff="קשה"   onclick="selectDifficulty('קשה')"><span class="diff-emoji">🔥</span> קשה</button>
         <button class="diff-btn" data-diff="מומחה" onclick="selectDifficulty('מומחה')"><span class="diff-emoji">🧠</span> מומחה</button>
