@@ -6898,5 +6898,4145 @@
       ""
     ],
     "hint": "הפרידו את האיברים למקומות אי-זוגיים וזוגיים."
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "בינוני",
+    "type": "יוצא דופן",
+    "instruction": "בחרו את הצורה היוצאת דופן.",
+    "question": "איזו צורה היא היוצאת דופן?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 0,
+    "explanation": "שלוש הצורות זהות, ורק אחת שונה בצורתה.",
+    "wrongExplanations": [
+      "",
+      "זו אחת מהצורות הזהות, לא היוצאת דופן.",
+      "זו אחת מהצורות הזהות, לא היוצאת דופן.",
+      "זו אחת מהצורות הזהות, לא היוצאת דופן."
+    ],
+    "hint": "חפשו את התכונה שמשותפת לשלוש צורות ושונה באחת.",
+    "figure": null,
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "circle",
+        "rot": 0,
+        "fill": "solid",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "star",
+        "rot": 0,
+        "fill": "solid",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "star",
+        "rot": 0,
+        "fill": "solid",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "star",
+        "rot": 0,
+        "fill": "solid",
+        "color": "b",
+        "n": 1
+      }
+    ],
+    "id": 301
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "בינוני",
+    "type": "יוצא דופן",
+    "instruction": "בחרו את הצורה היוצאת דופן.",
+    "question": "איזו צורה היא היוצאת דופן?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 3,
+    "explanation": "שלוש הצורות בעלות אותו מילוי, ורק אחת שונה במילוי.",
+    "wrongExplanations": [
+      "המילוי שלה זהה לשאר, לכן אינה היוצאת דופן.",
+      "המילוי שלה זהה לשאר, לכן אינה היוצאת דופן.",
+      "המילוי שלה זהה לשאר, לכן אינה היוצאת דופן.",
+      ""
+    ],
+    "hint": "חפשו את התכונה שמשותפת לשלוש צורות ושונה באחת.",
+    "figure": null,
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "diamond",
+        "rot": 0,
+        "fill": "solid",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "diamond",
+        "rot": 0,
+        "fill": "solid",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "diamond",
+        "rot": 0,
+        "fill": "solid",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "diamond",
+        "rot": 0,
+        "fill": "half",
+        "color": "b",
+        "n": 1
+      }
+    ],
+    "id": 302
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "בינוני",
+    "type": "יוצא דופן",
+    "instruction": "בחרו את הצורה היוצאת דופן.",
+    "question": "איזו צורה היא היוצאת דופן?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 2,
+    "explanation": "שלוש הצורות זהות, ורק אחת שונה בצורתה.",
+    "wrongExplanations": [
+      "זו אחת מהצורות הזהות, לא היוצאת דופן.",
+      "זו אחת מהצורות הזהות, לא היוצאת דופן.",
+      "",
+      "זו אחת מהצורות הזהות, לא היוצאת דופן."
+    ],
+    "hint": "חפשו את התכונה שמשותפת לשלוש צורות ושונה באחת.",
+    "figure": null,
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "square",
+        "rot": 0,
+        "fill": "solid",
+        "color": "g",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "square",
+        "rot": 0,
+        "fill": "solid",
+        "color": "g",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "star",
+        "rot": 0,
+        "fill": "solid",
+        "color": "g",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "square",
+        "rot": 0,
+        "fill": "solid",
+        "color": "g",
+        "n": 1
+      }
+    ],
+    "id": 303
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "בינוני",
+    "type": "סדרת צורות",
+    "instruction": "מצאו את הצורה שמשלימה את סדרת הסיבוב.",
+    "question": "איזו צורה משלימה את הסדרה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 3,
+    "explanation": "בכל שלב החץ מסתובב 90° באותו כיוון, לכן ההמשך הוא סיבוב של 135°.",
+    "wrongExplanations": [
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 90° בכל שלב.",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 90° בכל שלב.",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 90° בכל שלב.",
+      ""
+    ],
+    "hint": "עקבו אחרי כמה מעלות מסתובב החץ בכל שלב.",
+    "figure": {
+      "t": "row",
+      "cells": [
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 135,
+          "fill": "solid",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 225,
+          "fill": "solid",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 315,
+          "fill": "solid",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 45,
+          "fill": "solid",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 45,
+        "fill": "solid",
+        "color": "g",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 225,
+        "fill": "solid",
+        "color": "g",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 315,
+        "fill": "solid",
+        "color": "g",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 135,
+        "fill": "solid",
+        "color": "g",
+        "n": 1
+      }
+    ],
+    "id": 304
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "בינוני",
+    "type": "יוצא דופן",
+    "instruction": "בחרו את הצורה היוצאת דופן.",
+    "question": "איזו צורה היא היוצאת דופן?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 2,
+    "explanation": "שלוש הצורות זהות, ורק אחת שונה בצורתה.",
+    "wrongExplanations": [
+      "זו אחת מהצורות הזהות, לא היוצאת דופן.",
+      "זו אחת מהצורות הזהות, לא היוצאת דופן.",
+      "",
+      "זו אחת מהצורות הזהות, לא היוצאת דופן."
+    ],
+    "hint": "חפשו את התכונה שמשותפת לשלוש צורות ושונה באחת.",
+    "figure": null,
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "star",
+        "rot": 0,
+        "fill": "solid",
+        "color": "p",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "star",
+        "rot": 0,
+        "fill": "solid",
+        "color": "p",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "triangle",
+        "rot": 0,
+        "fill": "solid",
+        "color": "p",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "star",
+        "rot": 0,
+        "fill": "solid",
+        "color": "p",
+        "n": 1
+      }
+    ],
+    "id": 305
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "בינוני",
+    "type": "ספירת צורות",
+    "instruction": "השלימו את הסדרה לפי מספר הצורות.",
+    "question": "כמה צורות צריכות להופיע בשלב הבא?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 2,
+    "explanation": "בכל שלב נוסף איבר אחד: 1, 2, 3, ולכן בשלב הבא צריכות להיות 4 צורות.",
+    "wrongExplanations": [
+      "מספר הצורות (3) אינו ממשיך את הסדרה 1, 2, 3, ...",
+      "מספר הצורות (5) אינו ממשיך את הסדרה 1, 2, 3, ...",
+      "",
+      "מספר הצורות (2) אינו ממשיך את הסדרה 1, 2, 3, ..."
+    ],
+    "hint": "ספרו כמה צורות יש בכל שלב.",
+    "figure": {
+      "t": "row",
+      "cells": [
+        {
+          "t": "s",
+          "shape": "square",
+          "rot": 0,
+          "fill": "solid",
+          "color": "k",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "square",
+          "rot": 0,
+          "fill": "solid",
+          "color": "k",
+          "n": 2
+        },
+        {
+          "t": "s",
+          "shape": "square",
+          "rot": 0,
+          "fill": "solid",
+          "color": "k",
+          "n": 3
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "square",
+        "rot": 0,
+        "fill": "solid",
+        "color": "k",
+        "n": 3
+      },
+      {
+        "t": "s",
+        "shape": "square",
+        "rot": 0,
+        "fill": "solid",
+        "color": "k",
+        "n": 5
+      },
+      {
+        "t": "s",
+        "shape": "square",
+        "rot": 0,
+        "fill": "solid",
+        "color": "k",
+        "n": 4
+      },
+      {
+        "t": "s",
+        "shape": "square",
+        "rot": 0,
+        "fill": "solid",
+        "color": "k",
+        "n": 2
+      }
+    ],
+    "id": 306
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "בינוני",
+    "type": "סדרת צורות",
+    "instruction": "מצאו את הצורה שמשלימה את סדרת הסיבוב.",
+    "question": "איזו צורה משלימה את הסדרה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 3,
+    "explanation": "בכל שלב החץ מסתובב 90° באותו כיוון, לכן ההמשך הוא סיבוב של 135°.",
+    "wrongExplanations": [
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 90° בכל שלב.",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 90° בכל שלב.",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 90° בכל שלב.",
+      ""
+    ],
+    "hint": "עקבו אחרי כמה מעלות מסתובב החץ בכל שלב.",
+    "figure": {
+      "t": "row",
+      "cells": [
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 135,
+          "fill": "solid",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 225,
+          "fill": "solid",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 315,
+          "fill": "solid",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 45,
+          "fill": "solid",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 45,
+        "fill": "solid",
+        "color": "y",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 315,
+        "fill": "solid",
+        "color": "y",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 225,
+        "fill": "solid",
+        "color": "y",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 135,
+        "fill": "solid",
+        "color": "y",
+        "n": 1
+      }
+    ],
+    "id": 307
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "בינוני",
+    "type": "ספירת צורות",
+    "instruction": "השלימו את הסדרה לפי מספר הצורות.",
+    "question": "כמה צורות צריכות להופיע בשלב הבא?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 0,
+    "explanation": "בכל שלב נוסף איבר אחד: 1, 2, 3, ולכן בשלב הבא צריכות להיות 4 צורות.",
+    "wrongExplanations": [
+      "",
+      "מספר הצורות (2) אינו ממשיך את הסדרה 1, 2, 3, ...",
+      "מספר הצורות (5) אינו ממשיך את הסדרה 1, 2, 3, ...",
+      "מספר הצורות (3) אינו ממשיך את הסדרה 1, 2, 3, ..."
+    ],
+    "hint": "ספרו כמה צורות יש בכל שלב.",
+    "figure": {
+      "t": "row",
+      "cells": [
+        {
+          "t": "s",
+          "shape": "circle",
+          "rot": 0,
+          "fill": "solid",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "circle",
+          "rot": 0,
+          "fill": "solid",
+          "color": "y",
+          "n": 2
+        },
+        {
+          "t": "s",
+          "shape": "circle",
+          "rot": 0,
+          "fill": "solid",
+          "color": "y",
+          "n": 3
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "circle",
+        "rot": 0,
+        "fill": "solid",
+        "color": "y",
+        "n": 4
+      },
+      {
+        "t": "s",
+        "shape": "circle",
+        "rot": 0,
+        "fill": "solid",
+        "color": "y",
+        "n": 2
+      },
+      {
+        "t": "s",
+        "shape": "circle",
+        "rot": 0,
+        "fill": "solid",
+        "color": "y",
+        "n": 5
+      },
+      {
+        "t": "s",
+        "shape": "circle",
+        "rot": 0,
+        "fill": "solid",
+        "color": "y",
+        "n": 3
+      }
+    ],
+    "id": 308
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "בינוני",
+    "type": "ספירת צורות",
+    "instruction": "השלימו את הסדרה לפי מספר הצורות.",
+    "question": "כמה צורות צריכות להופיע בשלב הבא?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 1,
+    "explanation": "בכל שלב נוסף איבר אחד: 1, 2, 3, ולכן בשלב הבא צריכות להיות 4 צורות.",
+    "wrongExplanations": [
+      "מספר הצורות (5) אינו ממשיך את הסדרה 1, 2, 3, ...",
+      "",
+      "מספר הצורות (2) אינו ממשיך את הסדרה 1, 2, 3, ...",
+      "מספר הצורות (3) אינו ממשיך את הסדרה 1, 2, 3, ..."
+    ],
+    "hint": "ספרו כמה צורות יש בכל שלב.",
+    "figure": {
+      "t": "row",
+      "cells": [
+        {
+          "t": "s",
+          "shape": "star",
+          "rot": 0,
+          "fill": "solid",
+          "color": "p",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "star",
+          "rot": 0,
+          "fill": "solid",
+          "color": "p",
+          "n": 2
+        },
+        {
+          "t": "s",
+          "shape": "star",
+          "rot": 0,
+          "fill": "solid",
+          "color": "p",
+          "n": 3
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "star",
+        "rot": 0,
+        "fill": "solid",
+        "color": "p",
+        "n": 5
+      },
+      {
+        "t": "s",
+        "shape": "star",
+        "rot": 0,
+        "fill": "solid",
+        "color": "p",
+        "n": 4
+      },
+      {
+        "t": "s",
+        "shape": "star",
+        "rot": 0,
+        "fill": "solid",
+        "color": "p",
+        "n": 2
+      },
+      {
+        "t": "s",
+        "shape": "star",
+        "rot": 0,
+        "fill": "solid",
+        "color": "p",
+        "n": 3
+      }
+    ],
+    "id": 309
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "בינוני",
+    "type": "יוצא דופן",
+    "instruction": "בחרו את הצורה היוצאת דופן.",
+    "question": "איזו צורה היא היוצאת דופן?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 0,
+    "explanation": "שלוש הצורות בעלות אותו מילוי, ורק אחת שונה במילוי.",
+    "wrongExplanations": [
+      "",
+      "המילוי שלה זהה לשאר, לכן אינה היוצאת דופן.",
+      "המילוי שלה זהה לשאר, לכן אינה היוצאת דופן.",
+      "המילוי שלה זהה לשאר, לכן אינה היוצאת דופן."
+    ],
+    "hint": "חפשו את התכונה שמשותפת לשלוש צורות ושונה באחת.",
+    "figure": null,
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "hexagon",
+        "rot": 0,
+        "fill": "solid",
+        "color": "r",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "hexagon",
+        "rot": 0,
+        "fill": "empty",
+        "color": "r",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "hexagon",
+        "rot": 0,
+        "fill": "empty",
+        "color": "r",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "hexagon",
+        "rot": 0,
+        "fill": "empty",
+        "color": "r",
+        "n": 1
+      }
+    ],
+    "id": 310
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "בינוני",
+    "type": "יוצא דופן",
+    "instruction": "בחרו את הצורה היוצאת דופן.",
+    "question": "איזו צורה היא היוצאת דופן?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 3,
+    "explanation": "שלוש הצורות בעלות אותו מילוי, ורק אחת שונה במילוי.",
+    "wrongExplanations": [
+      "המילוי שלה זהה לשאר, לכן אינה היוצאת דופן.",
+      "המילוי שלה זהה לשאר, לכן אינה היוצאת דופן.",
+      "המילוי שלה זהה לשאר, לכן אינה היוצאת דופן.",
+      ""
+    ],
+    "hint": "חפשו את התכונה שמשותפת לשלוש צורות ושונה באחת.",
+    "figure": null,
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "diamond",
+        "rot": 0,
+        "fill": "half",
+        "color": "p",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "diamond",
+        "rot": 0,
+        "fill": "half",
+        "color": "p",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "diamond",
+        "rot": 0,
+        "fill": "half",
+        "color": "p",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "diamond",
+        "rot": 0,
+        "fill": "solid",
+        "color": "p",
+        "n": 1
+      }
+    ],
+    "id": 311
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "בינוני",
+    "type": "סדרת צורות",
+    "instruction": "מצאו את הצורה שמשלימה את סדרת הסיבוב.",
+    "question": "איזו צורה משלימה את הסדרה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 0,
+    "explanation": "בכל שלב החץ מסתובב 90° באותו כיוון, לכן ההמשך הוא סיבוב של 0°.",
+    "wrongExplanations": [
+      "",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 90° בכל שלב.",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 90° בכל שלב.",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 90° בכל שלב."
+    ],
+    "hint": "עקבו אחרי כמה מעלות מסתובב החץ בכל שלב.",
+    "figure": {
+      "t": "row",
+      "cells": [
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 0,
+          "fill": "solid",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 90,
+          "fill": "solid",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 180,
+          "fill": "solid",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 270,
+          "fill": "solid",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 0,
+        "fill": "solid",
+        "color": "r",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 90,
+        "fill": "solid",
+        "color": "r",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 180,
+        "fill": "solid",
+        "color": "r",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 270,
+        "fill": "solid",
+        "color": "r",
+        "n": 1
+      }
+    ],
+    "id": 312
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "בינוני",
+    "type": "יוצא דופן",
+    "instruction": "בחרו את הצורה היוצאת דופן.",
+    "question": "איזו צורה היא היוצאת דופן?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 2,
+    "explanation": "שלוש הצורות בעלות אותו מילוי, ורק אחת שונה במילוי.",
+    "wrongExplanations": [
+      "המילוי שלה זהה לשאר, לכן אינה היוצאת דופן.",
+      "המילוי שלה זהה לשאר, לכן אינה היוצאת דופן.",
+      "",
+      "המילוי שלה זהה לשאר, לכן אינה היוצאת דופן."
+    ],
+    "hint": "חפשו את התכונה שמשותפת לשלוש צורות ושונה באחת.",
+    "figure": null,
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "triangle",
+        "rot": 0,
+        "fill": "half",
+        "color": "p",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "triangle",
+        "rot": 0,
+        "fill": "half",
+        "color": "p",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "triangle",
+        "rot": 0,
+        "fill": "striped",
+        "color": "p",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "triangle",
+        "rot": 0,
+        "fill": "half",
+        "color": "p",
+        "n": 1
+      }
+    ],
+    "id": 313
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "בינוני",
+    "type": "סדרת צורות",
+    "instruction": "מצאו את הצורה שמשלימה את סדרת הסיבוב.",
+    "question": "איזו צורה משלימה את הסדרה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 0,
+    "explanation": "בכל שלב החץ מסתובב 90° באותו כיוון, לכן ההמשך הוא סיבוב של 180°.",
+    "wrongExplanations": [
+      "",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 90° בכל שלב.",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 90° בכל שלב.",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 90° בכל שלב."
+    ],
+    "hint": "עקבו אחרי כמה מעלות מסתובב החץ בכל שלב.",
+    "figure": {
+      "t": "row",
+      "cells": [
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 180,
+          "fill": "solid",
+          "color": "k",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 270,
+          "fill": "solid",
+          "color": "k",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 0,
+          "fill": "solid",
+          "color": "k",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 90,
+          "fill": "solid",
+          "color": "k",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 180,
+        "fill": "solid",
+        "color": "k",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 0,
+        "fill": "solid",
+        "color": "k",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 270,
+        "fill": "solid",
+        "color": "k",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 90,
+        "fill": "solid",
+        "color": "k",
+        "n": 1
+      }
+    ],
+    "id": 314
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "בינוני",
+    "type": "יוצא דופן",
+    "instruction": "בחרו את הצורה היוצאת דופן.",
+    "question": "איזו צורה היא היוצאת דופן?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 0,
+    "explanation": "שלוש הצורות זהות, ורק אחת שונה בצורתה.",
+    "wrongExplanations": [
+      "",
+      "זו אחת מהצורות הזהות, לא היוצאת דופן.",
+      "זו אחת מהצורות הזהות, לא היוצאת דופן.",
+      "זו אחת מהצורות הזהות, לא היוצאת דופן."
+    ],
+    "hint": "חפשו את התכונה שמשותפת לשלוש צורות ושונה באחת.",
+    "figure": null,
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "triangle",
+        "rot": 0,
+        "fill": "solid",
+        "color": "g",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "hexagon",
+        "rot": 0,
+        "fill": "solid",
+        "color": "g",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "hexagon",
+        "rot": 0,
+        "fill": "solid",
+        "color": "g",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "hexagon",
+        "rot": 0,
+        "fill": "solid",
+        "color": "g",
+        "n": 1
+      }
+    ],
+    "id": 315
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "קשה",
+    "type": "מטריצה",
+    "instruction": "מצאו את הצורה שמתאימה למקום השאלה במטריצה.",
+    "question": "איזו צורה מתאימה למקום עם סימן השאלה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 0,
+    "explanation": "בכל שורה צורה קבועה ובכל עמודה מילוי קבוע, לכן במקום החסר צריכה להופיע הצורה של השורה השלישית עם המאפיין של העמודה השלישית.",
+    "wrongExplanations": [
+      "",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה."
+    ],
+    "hint": "בדקו מה משותף לכל שורה ומה משותף לכל עמודה.",
+    "figure": {
+      "t": "grid",
+      "cols": 3,
+      "cells": [
+        {
+          "t": "s",
+          "shape": "diamond",
+          "rot": 0,
+          "fill": "striped",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "diamond",
+          "rot": 0,
+          "fill": "empty",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "diamond",
+          "rot": 0,
+          "fill": "half",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "star",
+          "rot": 0,
+          "fill": "striped",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "star",
+          "rot": 0,
+          "fill": "empty",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "star",
+          "rot": 0,
+          "fill": "half",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "circle",
+          "rot": 0,
+          "fill": "striped",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "circle",
+          "rot": 0,
+          "fill": "empty",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "circle",
+        "rot": 0,
+        "fill": "half",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "diamond",
+        "rot": 0,
+        "fill": "half",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "circle",
+        "rot": 0,
+        "fill": "striped",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "circle",
+        "rot": 0,
+        "fill": "empty",
+        "color": "b",
+        "n": 1
+      }
+    ],
+    "id": 316
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "קשה",
+    "type": "יוצא דופן",
+    "instruction": "בחרו את הצורה היוצאת דופן.",
+    "question": "איזו צורה היא היוצאת דופן?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 3,
+    "explanation": "שלושה חצים מצביעים לאותו כיוון, ורק אחד שונה.",
+    "wrongExplanations": [
+      "הכיוון שלו זהה לשאר, לכן אינו היוצא דופן.",
+      "הכיוון שלו זהה לשאר, לכן אינו היוצא דופן.",
+      "הכיוון שלו זהה לשאר, לכן אינו היוצא דופן.",
+      ""
+    ],
+    "hint": "חפשו את התכונה שמשותפת לשלוש צורות ושונה באחת.",
+    "figure": null,
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 135,
+        "fill": "solid",
+        "color": "r",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 135,
+        "fill": "solid",
+        "color": "r",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 135,
+        "fill": "solid",
+        "color": "r",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 225,
+        "fill": "solid",
+        "color": "r",
+        "n": 1
+      }
+    ],
+    "id": 317
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "קשה",
+    "type": "יוצא דופן",
+    "instruction": "בחרו את הצורה היוצאת דופן.",
+    "question": "איזו צורה היא היוצאת דופן?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 3,
+    "explanation": "שלושה חצים מצביעים לאותו כיוון, ורק אחד שונה.",
+    "wrongExplanations": [
+      "הכיוון שלו זהה לשאר, לכן אינו היוצא דופן.",
+      "הכיוון שלו זהה לשאר, לכן אינו היוצא דופן.",
+      "הכיוון שלו זהה לשאר, לכן אינו היוצא דופן.",
+      ""
+    ],
+    "hint": "חפשו את התכונה שמשותפת לשלוש צורות ושונה באחת.",
+    "figure": null,
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 90,
+        "fill": "solid",
+        "color": "k",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 90,
+        "fill": "solid",
+        "color": "k",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 90,
+        "fill": "solid",
+        "color": "k",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 180,
+        "fill": "solid",
+        "color": "k",
+        "n": 1
+      }
+    ],
+    "id": 318
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "קשה",
+    "type": "מטריצה",
+    "instruction": "מצאו את הצורה שמתאימה למקום השאלה במטריצה.",
+    "question": "איזו צורה מתאימה למקום עם סימן השאלה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 3,
+    "explanation": "בכל שורה צורה קבועה ובכל עמודה מילוי קבוע, לכן במקום החסר צריכה להופיע הצורה של השורה השלישית עם המאפיין של העמודה השלישית.",
+    "wrongExplanations": [
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      ""
+    ],
+    "hint": "בדקו מה משותף לכל שורה ומה משותף לכל עמודה.",
+    "figure": {
+      "t": "grid",
+      "cols": 3,
+      "cells": [
+        {
+          "t": "s",
+          "shape": "circle",
+          "rot": 0,
+          "fill": "empty",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "circle",
+          "rot": 0,
+          "fill": "half",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "circle",
+          "rot": 0,
+          "fill": "solid",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "square",
+          "rot": 0,
+          "fill": "empty",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "square",
+          "rot": 0,
+          "fill": "half",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "square",
+          "rot": 0,
+          "fill": "solid",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "diamond",
+          "rot": 0,
+          "fill": "empty",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "diamond",
+          "rot": 0,
+          "fill": "half",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "diamond",
+        "rot": 0,
+        "fill": "empty",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "diamond",
+        "rot": 0,
+        "fill": "half",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "circle",
+        "rot": 0,
+        "fill": "solid",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "diamond",
+        "rot": 0,
+        "fill": "solid",
+        "color": "b",
+        "n": 1
+      }
+    ],
+    "id": 319
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "קשה",
+    "type": "יוצא דופן",
+    "instruction": "בחרו את הצורה היוצאת דופן.",
+    "question": "איזו צורה היא היוצאת דופן?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 0,
+    "explanation": "שלוש הצורות באותו צבע, ורק אחת שונה בצבעה.",
+    "wrongExplanations": [
+      "",
+      "הצבע שלה זהה לשאר, לכן אינה היוצאת דופן.",
+      "הצבע שלה זהה לשאר, לכן אינה היוצאת דופן.",
+      "הצבע שלה זהה לשאר, לכן אינה היוצאת דופן."
+    ],
+    "hint": "חפשו את התכונה שמשותפת לשלוש צורות ושונה באחת.",
+    "figure": null,
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "square",
+        "rot": 0,
+        "fill": "solid",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "square",
+        "rot": 0,
+        "fill": "solid",
+        "color": "r",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "square",
+        "rot": 0,
+        "fill": "solid",
+        "color": "r",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "square",
+        "rot": 0,
+        "fill": "solid",
+        "color": "r",
+        "n": 1
+      }
+    ],
+    "id": 320
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "קשה",
+    "type": "מטריצה",
+    "instruction": "מצאו את הצורה שמתאימה למקום השאלה במטריצה.",
+    "question": "איזו צורה מתאימה למקום עם סימן השאלה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 1,
+    "explanation": "בכל שורה צורה קבועה ובכל עמודה מילוי קבוע, לכן במקום החסר צריכה להופיע הצורה של השורה השלישית עם המאפיין של העמודה השלישית.",
+    "wrongExplanations": [
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה."
+    ],
+    "hint": "בדקו מה משותף לכל שורה ומה משותף לכל עמודה.",
+    "figure": {
+      "t": "grid",
+      "cols": 3,
+      "cells": [
+        {
+          "t": "s",
+          "shape": "star",
+          "rot": 0,
+          "fill": "empty",
+          "color": "k",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "star",
+          "rot": 0,
+          "fill": "solid",
+          "color": "k",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "star",
+          "rot": 0,
+          "fill": "half",
+          "color": "k",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "triangle",
+          "rot": 0,
+          "fill": "empty",
+          "color": "k",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "triangle",
+          "rot": 0,
+          "fill": "solid",
+          "color": "k",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "triangle",
+          "rot": 0,
+          "fill": "half",
+          "color": "k",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "pentagon",
+          "rot": 0,
+          "fill": "empty",
+          "color": "k",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "pentagon",
+          "rot": 0,
+          "fill": "solid",
+          "color": "k",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "star",
+        "rot": 0,
+        "fill": "half",
+        "color": "k",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "pentagon",
+        "rot": 0,
+        "fill": "half",
+        "color": "k",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "pentagon",
+        "rot": 0,
+        "fill": "empty",
+        "color": "k",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "pentagon",
+        "rot": 0,
+        "fill": "solid",
+        "color": "k",
+        "n": 1
+      }
+    ],
+    "id": 321
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "קשה",
+    "type": "מטריצה",
+    "instruction": "מצאו את הצורה שמתאימה למקום השאלה במטריצה.",
+    "question": "איזו צורה מתאימה למקום עם סימן השאלה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 1,
+    "explanation": "בכל שורה צורה קבועה ובכל עמודה מילוי קבוע, לכן במקום החסר צריכה להופיע הצורה של השורה השלישית עם המאפיין של העמודה השלישית.",
+    "wrongExplanations": [
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה."
+    ],
+    "hint": "בדקו מה משותף לכל שורה ומה משותף לכל עמודה.",
+    "figure": {
+      "t": "grid",
+      "cols": 3,
+      "cells": [
+        {
+          "t": "s",
+          "shape": "square",
+          "rot": 0,
+          "fill": "empty",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "square",
+          "rot": 0,
+          "fill": "striped",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "square",
+          "rot": 0,
+          "fill": "half",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "diamond",
+          "rot": 0,
+          "fill": "empty",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "diamond",
+          "rot": 0,
+          "fill": "striped",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "diamond",
+          "rot": 0,
+          "fill": "half",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "star",
+          "rot": 0,
+          "fill": "empty",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "star",
+          "rot": 0,
+          "fill": "striped",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "square",
+        "rot": 0,
+        "fill": "half",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "star",
+        "rot": 0,
+        "fill": "half",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "star",
+        "rot": 0,
+        "fill": "empty",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "star",
+        "rot": 0,
+        "fill": "striped",
+        "color": "b",
+        "n": 1
+      }
+    ],
+    "id": 322
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "קשה",
+    "type": "סדרת צורות",
+    "instruction": "מצאו את הצורה שמשלימה את סדרת הסיבוב.",
+    "question": "איזו צורה משלימה את הסדרה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 0,
+    "explanation": "בכל שלב החץ מסתובב 45° באותו כיוון, לכן ההמשך הוא סיבוב של 0°.",
+    "wrongExplanations": [
+      "",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 45° בכל שלב.",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 45° בכל שלב.",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 45° בכל שלב."
+    ],
+    "hint": "עקבו אחרי כמה מעלות מסתובב החץ בכל שלב.",
+    "figure": {
+      "t": "row",
+      "cells": [
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 180,
+          "fill": "solid",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 225,
+          "fill": "solid",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 270,
+          "fill": "solid",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 315,
+          "fill": "solid",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 0,
+        "fill": "solid",
+        "color": "r",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 90,
+        "fill": "solid",
+        "color": "r",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 270,
+        "fill": "solid",
+        "color": "r",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 180,
+        "fill": "solid",
+        "color": "r",
+        "n": 1
+      }
+    ],
+    "id": 323
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "קשה",
+    "type": "סדרת צורות",
+    "instruction": "מצאו את הצורה שמשלימה את סדרת הסיבוב.",
+    "question": "איזו צורה משלימה את הסדרה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 1,
+    "explanation": "בכל שלב החץ מסתובב 45° באותו כיוון, לכן ההמשך הוא סיבוב של 0°.",
+    "wrongExplanations": [
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 45° בכל שלב.",
+      "",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 45° בכל שלב.",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 45° בכל שלב."
+    ],
+    "hint": "עקבו אחרי כמה מעלות מסתובב החץ בכל שלב.",
+    "figure": {
+      "t": "row",
+      "cells": [
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 180,
+          "fill": "solid",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 225,
+          "fill": "solid",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 270,
+          "fill": "solid",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 315,
+          "fill": "solid",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 180,
+        "fill": "solid",
+        "color": "r",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 0,
+        "fill": "solid",
+        "color": "r",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 270,
+        "fill": "solid",
+        "color": "r",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 90,
+        "fill": "solid",
+        "color": "r",
+        "n": 1
+      }
+    ],
+    "id": 324
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "קשה",
+    "type": "יוצא דופן",
+    "instruction": "בחרו את הצורה היוצאת דופן.",
+    "question": "איזו צורה היא היוצאת דופן?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 0,
+    "explanation": "שלושה חצים מצביעים לאותו כיוון, ורק אחד שונה.",
+    "wrongExplanations": [
+      "",
+      "הכיוון שלו זהה לשאר, לכן אינו היוצא דופן.",
+      "הכיוון שלו זהה לשאר, לכן אינו היוצא דופן.",
+      "הכיוון שלו זהה לשאר, לכן אינו היוצא דופן."
+    ],
+    "hint": "חפשו את התכונה שמשותפת לשלוש צורות ושונה באחת.",
+    "figure": null,
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 90,
+        "fill": "solid",
+        "color": "y",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 0,
+        "fill": "solid",
+        "color": "y",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 0,
+        "fill": "solid",
+        "color": "y",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 0,
+        "fill": "solid",
+        "color": "y",
+        "n": 1
+      }
+    ],
+    "id": 325
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "קשה",
+    "type": "סדרת צורות",
+    "instruction": "מצאו את הצורה שמשלימה את סדרת הסיבוב.",
+    "question": "איזו צורה משלימה את הסדרה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 3,
+    "explanation": "בכל שלב החץ מסתובב 45° באותו כיוון, לכן ההמשך הוא סיבוב של 270°.",
+    "wrongExplanations": [
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 45° בכל שלב.",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 45° בכל שלב.",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 45° בכל שלב.",
+      ""
+    ],
+    "hint": "עקבו אחרי כמה מעלות מסתובב החץ בכל שלב.",
+    "figure": {
+      "t": "row",
+      "cells": [
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 90,
+          "fill": "solid",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 135,
+          "fill": "solid",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 180,
+          "fill": "solid",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 225,
+          "fill": "solid",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 90,
+        "fill": "solid",
+        "color": "g",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 0,
+        "fill": "solid",
+        "color": "g",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 180,
+        "fill": "solid",
+        "color": "g",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 270,
+        "fill": "solid",
+        "color": "g",
+        "n": 1
+      }
+    ],
+    "id": 326
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "קשה",
+    "type": "מטריצה",
+    "instruction": "מצאו את הצורה שמתאימה למקום השאלה במטריצה.",
+    "question": "איזו צורה מתאימה למקום עם סימן השאלה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 2,
+    "explanation": "בכל שורה צורה קבועה ובכל עמודה מילוי קבוע, לכן במקום החסר צריכה להופיע הצורה של השורה השלישית עם המאפיין של העמודה השלישית.",
+    "wrongExplanations": [
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה."
+    ],
+    "hint": "בדקו מה משותף לכל שורה ומה משותף לכל עמודה.",
+    "figure": {
+      "t": "grid",
+      "cols": 3,
+      "cells": [
+        {
+          "t": "s",
+          "shape": "pentagon",
+          "rot": 0,
+          "fill": "striped",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "pentagon",
+          "rot": 0,
+          "fill": "solid",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "pentagon",
+          "rot": 0,
+          "fill": "empty",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "triangle",
+          "rot": 0,
+          "fill": "striped",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "triangle",
+          "rot": 0,
+          "fill": "solid",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "triangle",
+          "rot": 0,
+          "fill": "empty",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "diamond",
+          "rot": 0,
+          "fill": "striped",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "diamond",
+          "rot": 0,
+          "fill": "solid",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "diamond",
+        "rot": 0,
+        "fill": "solid",
+        "color": "y",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "diamond",
+        "rot": 0,
+        "fill": "striped",
+        "color": "y",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "diamond",
+        "rot": 0,
+        "fill": "empty",
+        "color": "y",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "pentagon",
+        "rot": 0,
+        "fill": "empty",
+        "color": "y",
+        "n": 1
+      }
+    ],
+    "id": 327
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "קשה",
+    "type": "סדרת צורות",
+    "instruction": "מצאו את הצורה שמשלימה את סדרת הסיבוב.",
+    "question": "איזו צורה משלימה את הסדרה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 1,
+    "explanation": "בכל שלב החץ מסתובב 45° באותו כיוון, לכן ההמשך הוא סיבוב של 270°.",
+    "wrongExplanations": [
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 45° בכל שלב.",
+      "",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 45° בכל שלב.",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 45° בכל שלב."
+    ],
+    "hint": "עקבו אחרי כמה מעלות מסתובב החץ בכל שלב.",
+    "figure": {
+      "t": "row",
+      "cells": [
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 90,
+          "fill": "solid",
+          "color": "p",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 135,
+          "fill": "solid",
+          "color": "p",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 180,
+          "fill": "solid",
+          "color": "p",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 225,
+          "fill": "solid",
+          "color": "p",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 0,
+        "fill": "solid",
+        "color": "p",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 270,
+        "fill": "solid",
+        "color": "p",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 90,
+        "fill": "solid",
+        "color": "p",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 180,
+        "fill": "solid",
+        "color": "p",
+        "n": 1
+      }
+    ],
+    "id": 328
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "קשה",
+    "type": "יוצא דופן",
+    "instruction": "בחרו את הצורה היוצאת דופן.",
+    "question": "איזו צורה היא היוצאת דופן?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 3,
+    "explanation": "שלוש הצורות באותו צבע, ורק אחת שונה בצבעה.",
+    "wrongExplanations": [
+      "הצבע שלה זהה לשאר, לכן אינה היוצאת דופן.",
+      "הצבע שלה זהה לשאר, לכן אינה היוצאת דופן.",
+      "הצבע שלה זהה לשאר, לכן אינה היוצאת דופן.",
+      ""
+    ],
+    "hint": "חפשו את התכונה שמשותפת לשלוש צורות ושונה באחת.",
+    "figure": null,
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "circle",
+        "rot": 0,
+        "fill": "solid",
+        "color": "k",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "circle",
+        "rot": 0,
+        "fill": "solid",
+        "color": "k",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "circle",
+        "rot": 0,
+        "fill": "solid",
+        "color": "k",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "circle",
+        "rot": 0,
+        "fill": "solid",
+        "color": "p",
+        "n": 1
+      }
+    ],
+    "id": 329
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "קשה",
+    "type": "מטריצה",
+    "instruction": "מצאו את הצורה שמתאימה למקום השאלה במטריצה.",
+    "question": "איזו צורה מתאימה למקום עם סימן השאלה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 1,
+    "explanation": "בכל שורה צורה קבועה ובכל עמודה מילוי קבוע, לכן במקום החסר צריכה להופיע הצורה של השורה השלישית עם המאפיין של העמודה השלישית.",
+    "wrongExplanations": [
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה."
+    ],
+    "hint": "בדקו מה משותף לכל שורה ומה משותף לכל עמודה.",
+    "figure": {
+      "t": "grid",
+      "cols": 3,
+      "cells": [
+        {
+          "t": "s",
+          "shape": "square",
+          "rot": 0,
+          "fill": "solid",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "square",
+          "rot": 0,
+          "fill": "striped",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "square",
+          "rot": 0,
+          "fill": "half",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "pentagon",
+          "rot": 0,
+          "fill": "solid",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "pentagon",
+          "rot": 0,
+          "fill": "striped",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "pentagon",
+          "rot": 0,
+          "fill": "half",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "hexagon",
+          "rot": 0,
+          "fill": "solid",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "hexagon",
+          "rot": 0,
+          "fill": "striped",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "hexagon",
+        "rot": 0,
+        "fill": "solid",
+        "color": "y",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "hexagon",
+        "rot": 0,
+        "fill": "half",
+        "color": "y",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "hexagon",
+        "rot": 0,
+        "fill": "striped",
+        "color": "y",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "square",
+        "rot": 0,
+        "fill": "half",
+        "color": "y",
+        "n": 1
+      }
+    ],
+    "id": 330
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "מומחה",
+    "type": "מטריצה",
+    "instruction": "מצאו את הצורה שמתאימה למקום השאלה במטריצה.",
+    "question": "איזו צורה מתאימה למקום עם סימן השאלה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 0,
+    "explanation": "בכל שורה צורה קבועה ובכל עמודה מילוי/צבע קבוע, לכן במקום החסר צריכה להופיע הצורה של השורה השלישית עם המאפיין של העמודה השלישית.",
+    "wrongExplanations": [
+      "",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה."
+    ],
+    "hint": "בדקו מה משותף לכל שורה ומה משותף לכל עמודה.",
+    "figure": {
+      "t": "grid",
+      "cols": 3,
+      "cells": [
+        {
+          "t": "s",
+          "shape": "square",
+          "rot": 0,
+          "fill": "striped",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "square",
+          "rot": 0,
+          "fill": "empty",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "square",
+          "rot": 0,
+          "fill": "half",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "triangle",
+          "rot": 0,
+          "fill": "striped",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "triangle",
+          "rot": 0,
+          "fill": "empty",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "triangle",
+          "rot": 0,
+          "fill": "half",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "hexagon",
+          "rot": 0,
+          "fill": "striped",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "hexagon",
+          "rot": 0,
+          "fill": "empty",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "hexagon",
+        "rot": 0,
+        "fill": "half",
+        "color": "r",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "square",
+        "rot": 0,
+        "fill": "half",
+        "color": "r",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "hexagon",
+        "rot": 0,
+        "fill": "empty",
+        "color": "g",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "hexagon",
+        "rot": 0,
+        "fill": "striped",
+        "color": "r",
+        "n": 1
+      }
+    ],
+    "id": 331
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "מומחה",
+    "type": "יוצא דופן",
+    "instruction": "בחרו את הצורה היוצאת דופן.",
+    "question": "איזו צורה היא היוצאת דופן?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 2,
+    "explanation": "שלוש הצורות באותו צבע, ורק אחת שונה בצבעה.",
+    "wrongExplanations": [
+      "הצבע שלה זהה לשאר, לכן אינה היוצאת דופן.",
+      "הצבע שלה זהה לשאר, לכן אינה היוצאת דופן.",
+      "",
+      "הצבע שלה זהה לשאר, לכן אינה היוצאת דופן."
+    ],
+    "hint": "חפשו את התכונה שמשותפת לשלוש צורות ושונה באחת.",
+    "figure": null,
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "star",
+        "rot": 0,
+        "fill": "solid",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "star",
+        "rot": 0,
+        "fill": "solid",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "star",
+        "rot": 0,
+        "fill": "solid",
+        "color": "k",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "star",
+        "rot": 0,
+        "fill": "solid",
+        "color": "b",
+        "n": 1
+      }
+    ],
+    "id": 332
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "מומחה",
+    "type": "מטריצה",
+    "instruction": "מצאו את הצורה שמתאימה למקום השאלה במטריצה.",
+    "question": "איזו צורה מתאימה למקום עם סימן השאלה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 3,
+    "explanation": "בכל שורה צורה קבועה ובכל עמודה מילוי/צבע קבוע, לכן במקום החסר צריכה להופיע הצורה של השורה השלישית עם המאפיין של העמודה השלישית.",
+    "wrongExplanations": [
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      ""
+    ],
+    "hint": "בדקו מה משותף לכל שורה ומה משותף לכל עמודה.",
+    "figure": {
+      "t": "grid",
+      "cols": 3,
+      "cells": [
+        {
+          "t": "s",
+          "shape": "circle",
+          "rot": 0,
+          "fill": "solid",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "circle",
+          "rot": 0,
+          "fill": "half",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "circle",
+          "rot": 0,
+          "fill": "empty",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "square",
+          "rot": 0,
+          "fill": "solid",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "square",
+          "rot": 0,
+          "fill": "half",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "square",
+          "rot": 0,
+          "fill": "empty",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "pentagon",
+          "rot": 0,
+          "fill": "solid",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "pentagon",
+          "rot": 0,
+          "fill": "half",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "pentagon",
+        "rot": 0,
+        "fill": "solid",
+        "color": "r",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "pentagon",
+        "rot": 0,
+        "fill": "half",
+        "color": "g",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "circle",
+        "rot": 0,
+        "fill": "empty",
+        "color": "r",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "pentagon",
+        "rot": 0,
+        "fill": "empty",
+        "color": "r",
+        "n": 1
+      }
+    ],
+    "id": 333
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "מומחה",
+    "type": "מטריצה",
+    "instruction": "מצאו את הצורה שמתאימה למקום השאלה במטריצה.",
+    "question": "איזו צורה מתאימה למקום עם סימן השאלה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 1,
+    "explanation": "בכל שורה צורה קבועה ובכל עמודה מילוי/צבע קבוע, לכן במקום החסר צריכה להופיע הצורה של השורה השלישית עם המאפיין של העמודה השלישית.",
+    "wrongExplanations": [
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה."
+    ],
+    "hint": "בדקו מה משותף לכל שורה ומה משותף לכל עמודה.",
+    "figure": {
+      "t": "grid",
+      "cols": 3,
+      "cells": [
+        {
+          "t": "s",
+          "shape": "star",
+          "rot": 0,
+          "fill": "empty",
+          "color": "p",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "star",
+          "rot": 0,
+          "fill": "solid",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "star",
+          "rot": 0,
+          "fill": "half",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "pentagon",
+          "rot": 0,
+          "fill": "empty",
+          "color": "p",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "pentagon",
+          "rot": 0,
+          "fill": "solid",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "pentagon",
+          "rot": 0,
+          "fill": "half",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "hexagon",
+          "rot": 0,
+          "fill": "empty",
+          "color": "p",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "hexagon",
+          "rot": 0,
+          "fill": "solid",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "star",
+        "rot": 0,
+        "fill": "half",
+        "color": "g",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "hexagon",
+        "rot": 0,
+        "fill": "half",
+        "color": "g",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "hexagon",
+        "rot": 0,
+        "fill": "solid",
+        "color": "p",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "hexagon",
+        "rot": 0,
+        "fill": "empty",
+        "color": "g",
+        "n": 1
+      }
+    ],
+    "id": 334
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "מומחה",
+    "type": "סדרת צורות",
+    "instruction": "מצאו את הצורה שמשלימה את סדרת הסיבוב.",
+    "question": "איזו צורה משלימה את הסדרה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 2,
+    "explanation": "בכל שלב החץ מסתובב 45° באותו כיוון והמילוי מתחלף, לכן ההמשך הוא סיבוב של 180°.",
+    "wrongExplanations": [
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 45° בכל שלב.",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 45° בכל שלב.",
+      "",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 45° בכל שלב."
+    ],
+    "hint": "עקבו אחרי כמה מעלות מסתובב החץ בכל שלב.",
+    "figure": {
+      "t": "row",
+      "cells": [
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 0,
+          "fill": "solid",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 45,
+          "fill": "empty",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 90,
+          "fill": "solid",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 135,
+          "fill": "empty",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 180,
+        "fill": "empty",
+        "color": "g",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 270,
+        "fill": "solid",
+        "color": "g",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 180,
+        "fill": "solid",
+        "color": "g",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 0,
+        "fill": "solid",
+        "color": "g",
+        "n": 1
+      }
+    ],
+    "id": 335
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "מומחה",
+    "type": "יוצא דופן",
+    "instruction": "בחרו את הצורה היוצאת דופן.",
+    "question": "איזו צורה היא היוצאת דופן?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 1,
+    "explanation": "שלושה חצים מצביעים לאותו כיוון, ורק אחד שונה.",
+    "wrongExplanations": [
+      "הכיוון שלו זהה לשאר, לכן אינו היוצא דופן.",
+      "",
+      "הכיוון שלו זהה לשאר, לכן אינו היוצא דופן.",
+      "הכיוון שלו זהה לשאר, לכן אינו היוצא דופן."
+    ],
+    "hint": "חפשו את התכונה שמשותפת לשלוש צורות ושונה באחת.",
+    "figure": null,
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 90,
+        "fill": "solid",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 180,
+        "fill": "solid",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 90,
+        "fill": "solid",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 90,
+        "fill": "solid",
+        "color": "b",
+        "n": 1
+      }
+    ],
+    "id": 336
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "מומחה",
+    "type": "יוצא דופן",
+    "instruction": "בחרו את הצורה היוצאת דופן.",
+    "question": "איזו צורה היא היוצאת דופן?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 2,
+    "explanation": "שלושה חצים מצביעים לאותו כיוון, ורק אחד שונה.",
+    "wrongExplanations": [
+      "הכיוון שלו זהה לשאר, לכן אינו היוצא דופן.",
+      "הכיוון שלו זהה לשאר, לכן אינו היוצא דופן.",
+      "",
+      "הכיוון שלו זהה לשאר, לכן אינו היוצא דופן."
+    ],
+    "hint": "חפשו את התכונה שמשותפת לשלוש צורות ושונה באחת.",
+    "figure": null,
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 0,
+        "fill": "solid",
+        "color": "k",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 0,
+        "fill": "solid",
+        "color": "k",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 90,
+        "fill": "solid",
+        "color": "k",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 0,
+        "fill": "solid",
+        "color": "k",
+        "n": 1
+      }
+    ],
+    "id": 337
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "מומחה",
+    "type": "מטריצה",
+    "instruction": "מצאו את הצורה שמתאימה למקום השאלה במטריצה.",
+    "question": "איזו צורה מתאימה למקום עם סימן השאלה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 1,
+    "explanation": "בכל שורה צורה קבועה ובכל עמודה מילוי/צבע קבוע, לכן במקום החסר צריכה להופיע הצורה של השורה השלישית עם המאפיין של העמודה השלישית.",
+    "wrongExplanations": [
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה."
+    ],
+    "hint": "בדקו מה משותף לכל שורה ומה משותף לכל עמודה.",
+    "figure": {
+      "t": "grid",
+      "cols": 3,
+      "cells": [
+        {
+          "t": "s",
+          "shape": "star",
+          "rot": 0,
+          "fill": "striped",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "star",
+          "rot": 0,
+          "fill": "solid",
+          "color": "k",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "star",
+          "rot": 0,
+          "fill": "empty",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "circle",
+          "rot": 0,
+          "fill": "striped",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "circle",
+          "rot": 0,
+          "fill": "solid",
+          "color": "k",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "circle",
+          "rot": 0,
+          "fill": "empty",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "triangle",
+          "rot": 0,
+          "fill": "striped",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "triangle",
+          "rot": 0,
+          "fill": "solid",
+          "color": "k",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "triangle",
+        "rot": 0,
+        "fill": "solid",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "triangle",
+        "rot": 0,
+        "fill": "empty",
+        "color": "y",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "star",
+        "rot": 0,
+        "fill": "empty",
+        "color": "y",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "triangle",
+        "rot": 0,
+        "fill": "striped",
+        "color": "y",
+        "n": 1
+      }
+    ],
+    "id": 338
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "מומחה",
+    "type": "מטריצה",
+    "instruction": "מצאו את הצורה שמתאימה למקום השאלה במטריצה.",
+    "question": "איזו צורה מתאימה למקום עם סימן השאלה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 1,
+    "explanation": "בכל שורה צורה קבועה ובכל עמודה מילוי/צבע קבוע, לכן במקום החסר צריכה להופיע הצורה של השורה השלישית עם המאפיין של העמודה השלישית.",
+    "wrongExplanations": [
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה."
+    ],
+    "hint": "בדקו מה משותף לכל שורה ומה משותף לכל עמודה.",
+    "figure": {
+      "t": "grid",
+      "cols": 3,
+      "cells": [
+        {
+          "t": "s",
+          "shape": "circle",
+          "rot": 0,
+          "fill": "striped",
+          "color": "p",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "circle",
+          "rot": 0,
+          "fill": "solid",
+          "color": "k",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "circle",
+          "rot": 0,
+          "fill": "half",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "square",
+          "rot": 0,
+          "fill": "striped",
+          "color": "p",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "square",
+          "rot": 0,
+          "fill": "solid",
+          "color": "k",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "square",
+          "rot": 0,
+          "fill": "half",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "hexagon",
+          "rot": 0,
+          "fill": "striped",
+          "color": "p",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "hexagon",
+          "rot": 0,
+          "fill": "solid",
+          "color": "k",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "hexagon",
+        "rot": 0,
+        "fill": "solid",
+        "color": "p",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "hexagon",
+        "rot": 0,
+        "fill": "half",
+        "color": "g",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "circle",
+        "rot": 0,
+        "fill": "half",
+        "color": "g",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "hexagon",
+        "rot": 0,
+        "fill": "striped",
+        "color": "g",
+        "n": 1
+      }
+    ],
+    "id": 339
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "מומחה",
+    "type": "סדרת צורות",
+    "instruction": "מצאו את הצורה שמשלימה את סדרת הסיבוב.",
+    "question": "איזו צורה משלימה את הסדרה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 0,
+    "explanation": "בכל שלב החץ מסתובב 45° באותו כיוון והמילוי מתחלף, לכן ההמשך הוא סיבוב של 270°.",
+    "wrongExplanations": [
+      "",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 45° בכל שלב.",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 45° בכל שלב.",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 45° בכל שלב."
+    ],
+    "hint": "עקבו אחרי כמה מעלות מסתובב החץ בכל שלב.",
+    "figure": {
+      "t": "row",
+      "cells": [
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 90,
+          "fill": "solid",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 135,
+          "fill": "empty",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 180,
+          "fill": "solid",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 225,
+          "fill": "empty",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 270,
+        "fill": "solid",
+        "color": "y",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 90,
+        "fill": "solid",
+        "color": "y",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 0,
+        "fill": "solid",
+        "color": "y",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 270,
+        "fill": "empty",
+        "color": "y",
+        "n": 1
+      }
+    ],
+    "id": 340
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "מומחה",
+    "type": "מטריצה",
+    "instruction": "מצאו את הצורה שמתאימה למקום השאלה במטריצה.",
+    "question": "איזו צורה מתאימה למקום עם סימן השאלה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 0,
+    "explanation": "בכל שורה צורה קבועה ובכל עמודה מילוי/צבע קבוע, לכן במקום החסר צריכה להופיע הצורה של השורה השלישית עם המאפיין של העמודה השלישית.",
+    "wrongExplanations": [
+      "",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה."
+    ],
+    "hint": "בדקו מה משותף לכל שורה ומה משותף לכל עמודה.",
+    "figure": {
+      "t": "grid",
+      "cols": 3,
+      "cells": [
+        {
+          "t": "s",
+          "shape": "star",
+          "rot": 0,
+          "fill": "half",
+          "color": "k",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "star",
+          "rot": 0,
+          "fill": "empty",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "star",
+          "rot": 0,
+          "fill": "striped",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "pentagon",
+          "rot": 0,
+          "fill": "half",
+          "color": "k",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "pentagon",
+          "rot": 0,
+          "fill": "empty",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "pentagon",
+          "rot": 0,
+          "fill": "striped",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "triangle",
+          "rot": 0,
+          "fill": "half",
+          "color": "k",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "triangle",
+          "rot": 0,
+          "fill": "empty",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "triangle",
+        "rot": 0,
+        "fill": "striped",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "star",
+        "rot": 0,
+        "fill": "striped",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "triangle",
+        "rot": 0,
+        "fill": "empty",
+        "color": "k",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "triangle",
+        "rot": 0,
+        "fill": "half",
+        "color": "b",
+        "n": 1
+      }
+    ],
+    "id": 341
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "מומחה",
+    "type": "מטריצה",
+    "instruction": "מצאו את הצורה שמתאימה למקום השאלה במטריצה.",
+    "question": "איזו צורה מתאימה למקום עם סימן השאלה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 3,
+    "explanation": "בכל שורה צורה קבועה ובכל עמודה מילוי/צבע קבוע, לכן במקום החסר צריכה להופיע הצורה של השורה השלישית עם המאפיין של העמודה השלישית.",
+    "wrongExplanations": [
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      ""
+    ],
+    "hint": "בדקו מה משותף לכל שורה ומה משותף לכל עמודה.",
+    "figure": {
+      "t": "grid",
+      "cols": 3,
+      "cells": [
+        {
+          "t": "s",
+          "shape": "pentagon",
+          "rot": 0,
+          "fill": "half",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "pentagon",
+          "rot": 0,
+          "fill": "empty",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "pentagon",
+          "rot": 0,
+          "fill": "solid",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "circle",
+          "rot": 0,
+          "fill": "half",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "circle",
+          "rot": 0,
+          "fill": "empty",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "circle",
+          "rot": 0,
+          "fill": "solid",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "triangle",
+          "rot": 0,
+          "fill": "half",
+          "color": "g",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "triangle",
+          "rot": 0,
+          "fill": "empty",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "pentagon",
+        "rot": 0,
+        "fill": "solid",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "triangle",
+        "rot": 0,
+        "fill": "half",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "triangle",
+        "rot": 0,
+        "fill": "empty",
+        "color": "g",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "triangle",
+        "rot": 0,
+        "fill": "solid",
+        "color": "b",
+        "n": 1
+      }
+    ],
+    "id": 342
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "מומחה",
+    "type": "סדרת צורות",
+    "instruction": "מצאו את הצורה שמשלימה את סדרת הסיבוב.",
+    "question": "איזו צורה משלימה את הסדרה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 0,
+    "explanation": "בכל שלב החץ מסתובב 45° באותו כיוון והמילוי מתחלף, לכן ההמשך הוא סיבוב של 225°.",
+    "wrongExplanations": [
+      "",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 45° בכל שלב.",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 45° בכל שלב.",
+      "הכיוון של החץ אינו ממשיך את הסיבוב הקבוע של 45° בכל שלב."
+    ],
+    "hint": "עקבו אחרי כמה מעלות מסתובב החץ בכל שלב.",
+    "figure": {
+      "t": "row",
+      "cells": [
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 45,
+          "fill": "solid",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 90,
+          "fill": "empty",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 135,
+          "fill": "solid",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "arrow",
+          "rot": 180,
+          "fill": "empty",
+          "color": "b",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 225,
+        "fill": "solid",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 225,
+        "fill": "empty",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 45,
+        "fill": "solid",
+        "color": "b",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 315,
+        "fill": "solid",
+        "color": "b",
+        "n": 1
+      }
+    ],
+    "id": 343
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "מומחה",
+    "type": "מטריצה",
+    "instruction": "מצאו את הצורה שמתאימה למקום השאלה במטריצה.",
+    "question": "איזו צורה מתאימה למקום עם סימן השאלה?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 2,
+    "explanation": "בכל שורה צורה קבועה ובכל עמודה מילוי/צבע קבוע, לכן במקום החסר צריכה להופיע הצורה של השורה השלישית עם המאפיין של העמודה השלישית.",
+    "wrongExplanations": [
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה.",
+      "",
+      "הצורה אינה תואמת את חוק השורות והעמודות של המטריצה."
+    ],
+    "hint": "בדקו מה משותף לכל שורה ומה משותף לכל עמודה.",
+    "figure": {
+      "t": "grid",
+      "cols": 3,
+      "cells": [
+        {
+          "t": "s",
+          "shape": "diamond",
+          "rot": 0,
+          "fill": "striped",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "diamond",
+          "rot": 0,
+          "fill": "empty",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "diamond",
+          "rot": 0,
+          "fill": "half",
+          "color": "k",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "star",
+          "rot": 0,
+          "fill": "striped",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "star",
+          "rot": 0,
+          "fill": "empty",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "star",
+          "rot": 0,
+          "fill": "half",
+          "color": "k",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "square",
+          "rot": 0,
+          "fill": "striped",
+          "color": "r",
+          "n": 1
+        },
+        {
+          "t": "s",
+          "shape": "square",
+          "rot": 0,
+          "fill": "empty",
+          "color": "y",
+          "n": 1
+        },
+        {
+          "t": "q"
+        }
+      ]
+    },
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "square",
+        "rot": 0,
+        "fill": "empty",
+        "color": "r",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "square",
+        "rot": 0,
+        "fill": "striped",
+        "color": "k",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "square",
+        "rot": 0,
+        "fill": "half",
+        "color": "k",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "diamond",
+        "rot": 0,
+        "fill": "half",
+        "color": "k",
+        "n": 1
+      }
+    ],
+    "id": 344
+  },
+  {
+    "category": "צורות והיגיון",
+    "difficulty": "מומחה",
+    "type": "יוצא דופן",
+    "instruction": "בחרו את הצורה היוצאת דופן.",
+    "question": "איזו צורה היא היוצאת דופן?",
+    "options": [
+      "אפשרות א",
+      "אפשרות ב",
+      "אפשרות ג",
+      "אפשרות ד"
+    ],
+    "answer": 2,
+    "explanation": "שלושה חצים מצביעים לאותו כיוון, ורק אחד שונה.",
+    "wrongExplanations": [
+      "הכיוון שלו זהה לשאר, לכן אינו היוצא דופן.",
+      "הכיוון שלו זהה לשאר, לכן אינו היוצא דופן.",
+      "",
+      "הכיוון שלו זהה לשאר, לכן אינו היוצא דופן."
+    ],
+    "hint": "חפשו את התכונה שמשותפת לשלוש צורות ושונה באחת.",
+    "figure": null,
+    "optionFigures": [
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 135,
+        "fill": "solid",
+        "color": "k",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 135,
+        "fill": "solid",
+        "color": "k",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 225,
+        "fill": "solid",
+        "color": "k",
+        "n": 1
+      },
+      {
+        "t": "s",
+        "shape": "arrow",
+        "rot": 135,
+        "fill": "solid",
+        "color": "k",
+        "n": 1
+      }
+    ],
+    "id": 345
   }
 ]
