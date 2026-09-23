@@ -1,5 +1,5 @@
 /* Service worker: offline app shell + question banks (cache-first). */
-const CACHE = "hnunin-v2";
+const CACHE = "hnunin-v3";
 const ASSETS = [
   "./",
   "index.html",

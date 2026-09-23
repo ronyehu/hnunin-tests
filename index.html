@@ -242,6 +242,20 @@
     .diff-btn:hover { border-color: var(--primary); }
     .diff-btn.active { border-color: var(--primary); background: var(--badge-bg); color: var(--primary); }
     .diff-emoji { font-size: 18px; }
+    /* dashboard */
+    .dash-h { font-size: 15px; margin: 20px 0 8px; }
+    .metric-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .metric { background: var(--soft); border: 1px solid var(--border); border-radius: 12px; padding: 12px 8px; text-align: center; }
+    .metric-val { font-size: 22px; font-weight: 800; color: var(--primary); }
+    .metric-lbl { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    .bar-row { display: flex; align-items: center; gap: 8px; margin: 7px 0; font-size: 14px; }
+    .bar-label { width: 120px; white-space: nowrap; }
+    .bar-track { flex: 1; height: 16px; background: var(--border); border-radius: 999px; overflow: hidden; }
+    .bar-fill { height: 100%; border-radius: 999px; transition: width .5s; }
+    .bar-val { width: 58px; text-align: left; font-weight: 700; }
+    .bar-good { background: var(--success); } .bar-fair { background: var(--warn); } .bar-bad { background: var(--error); }
+    .weak-box { margin-top: 16px; padding: 12px; border-radius: 10px; background: #fffbeb; border-right: 4px solid var(--warn); color: #92400e; font-size: 14px; }
+    html[data-theme="dark"] .weak-box { background: #3b2f14; color: #fde68a; }
     .adaptive-row { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; font-size: 14px; color: var(--text); cursor: pointer; }
     .adaptive-row input { width: 18px; height: 18px; accent-color: var(--primary); }
     /* instruction + type */
@@ -288,6 +302,18 @@
     .badge-emoji { font-size: 32px; line-height: 1.1; }
     .badge-title { font-weight: 700; font-size: 13px; margin-top: 4px; }
     .badge-desc { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    /* success DOM effects */
+    .fx-float { position: fixed; bottom: -60px; z-index: 9998; pointer-events: none;
+      animation: fxrise linear forwards; }
+    @keyframes fxrise { 0% { transform: translateY(0) translateX(0); opacity: 0; }
+      15% { opacity: 1; } 100% { transform: translateY(-105vh) translateX(var(--drift, 0)); opacity: 0; } }
+    .fx-pop { position: fixed; top: 32%; left: 50%; z-index: 9998; pointer-events: none;
+      font-size: 96px; transform: translate(-50%, -50%) scale(.2); opacity: 0;
+      animation: fxpop 1s cubic-bezier(.18,1.5,.4,1) forwards; }
+    @keyframes fxpop { 0% { transform: translate(-50%,-50%) scale(.2) rotate(-15deg); opacity: 0; }
+      30% { transform: translate(-50%,-50%) scale(1.15) rotate(6deg); opacity: 1; }
+      60% { transform: translate(-50%,-50%) scale(1) rotate(-3deg); opacity: 1; }
+      100% { transform: translate(-50%,-60%) scale(1) rotate(0); opacity: 0; } }
     .mute-toggle { position: fixed; top: 14px; left: 64px; z-index: 100; width: 42px; height: 42px;
       border-radius: 999px; border: 1px solid var(--border); background: var(--card); color: var(--text);
       font-size: 18px; cursor: pointer; box-shadow: 0 2px 4px var(--shadow); }
@@ -336,11 +362,28 @@
         <button id="btn-exam" class="btn" onclick="startExam()">מבחן (10 דקות)</button>
       </div>
       <button id="btn-mistakes" class="btn btn-secondary" style="width:100%;margin-top:12px;" onclick="startMistakes()">🔁 תרגול טעויות (0)</button>
+      <button class="btn btn-secondary" style="width:100%;margin-top:12px;" onclick="showDashboard()">📈 ההתקדמות שלי</button>
       <div class="mode-buttons" style="margin-top:12px;">
         <button class="btn btn-secondary" onclick="showHistory()">היסטוריית תוצאות</button>
         <button class="btn btn-secondary" onclick="showBadges()">🏅 הישגים</button>
       </div>
       <p class="subtitle" style="margin-top:16px;font-size:13px;">מבחן: 10 שאלות אקראיות מכל נושא (30 בסך הכול) ברמה שנבחרה, 10 דקות, ציון בסוף.</p>
+    </div>
+
+    <!-- DASHBOARD SCREEN -->
+    <div id="screen-dashboard" class="hidden">
+      <h1>📈 ההתקדמות שלי</h1>
+      <div id="dash-metrics" class="metric-grid"></div>
+      <h3 class="dash-h">דיוק לפי נושא</h3>
+      <div id="dash-topics"></div>
+      <h3 class="dash-h">דיוק לפי רמה</h3>
+      <div id="dash-diffs"></div>
+      <div id="dash-weak" class="weak-box hidden"></div>
+      <h3 class="dash-h" id="dash-trend-h">מגמת מבחנים אחרונים</h3>
+      <div id="dash-trend"></div>
+      <div class="actions" style="justify-content:center;margin-top:16px;">
+        <button class="btn btn-secondary" onclick="goStart()">← חזרה</button>
+      </div>
     </div>
 
     <!-- BADGES SCREEN -->
@@ -511,7 +554,7 @@
       return a;
     }
     function show(id) {
-      ["screen-start","screen-practice","screen-exam","screen-results","screen-history","screen-badges"]
+      ["screen-start","screen-practice","screen-exam","screen-results","screen-history","screen-badges","screen-dashboard"]
         .forEach(s => document.getElementById(s).classList.toggle("hidden", s !== id));
       document.body.classList.remove("chrome-hidden");
     }
@@ -571,6 +614,7 @@
     // render a figure node (spec) to HTML
     function figNode(node, px) {
       if (!node) return "";
+      if (node.t === "geo") return geoSVG(node);
       if (node.t === "q") return `<span class="figq">?</span>`;
       if (node.t === "s") {
         const n = node.n || 1;
@@ -597,10 +641,50 @@
       if (fig) { el.innerHTML = `<div class="figrow">${figNode(fig, 50)}</div>`; el.classList.remove("hidden"); }
       else { el.innerHTML = ""; el.classList.add("hidden"); }
     }
+    // Build a geometry diagram spec from a quant geometry question (no data change).
+    function geoFromQuestion(q) {
+      if (!q || q.category !== "חשיבה כמותית" || q.type !== "גאומטריה") return null;
+      const t = q.question; let m;
+      if ((m = t.match(/מלבן שאורכו\s*(\d+).*?ורוחבו\s*(\d+)/))) return { t: "geo", shape: "rect", w: +m[1], h: +m[2] };
+      if ((m = t.match(/ריבוע שאורך צלעו\s*(\d+)/)))            return { t: "geo", shape: "square", side: +m[1] };
+      if ((m = t.match(/שתי זוויות הן\s*(\d+)°\s*ו-?\s*(\d+)°/))) return { t: "geo", shape: "triangle", a: +m[1], b: +m[2] };
+      return null;
+    }
+    function geoSVG(n) {
+      const S = "#6366f1", fill = "rgba(99,102,241,0.15)";
+      const wrap = (inner) => `<svg viewBox="0 0 200 150" width="200" height="150" style="color:var(--text)">${inner}</svg>`;
+      const lbl = (x, y, s) => `<text x="${x}" y="${y}" fill="currentColor" font-size="15" font-weight="700" text-anchor="middle" dominant-baseline="middle">${LRI}${s}${PDI}</text>`;
+      if (n.shape === "rect" || n.shape === "square") {
+        const w = n.shape === "square" ? n.side : n.w, h = n.shape === "square" ? n.side : n.h;
+        const maxW = 150, maxH = 100, k = Math.min(maxW / w, maxH / h), rw = w * k, rh = h * k;
+        const x = (200 - rw) / 2, y = (150 - rh) / 2 - 6;
+        return wrap(
+          `<rect x="${x}" y="${y}" width="${rw}" height="${rh}" fill="${fill}" stroke="${S}" stroke-width="3"/>` +
+          lbl(x + rw / 2, y + rh + 18, w) +
+          `<g>` + lbl(x - 16, y + rh / 2, h) + `</g>`
+        );
+      }
+      if (n.shape === "triangle") {
+        const A = { x: 30, y: 120 }, B = { x: 170, y: 120 }, C = { x: 108, y: 24 };
+        return wrap(
+          `<polygon points="${A.x},${A.y} ${B.x},${B.y} ${C.x},${C.y}" fill="${fill}" stroke="${S}" stroke-width="3"/>` +
+          lbl(A.x + 24, A.y - 10, n.a + "°") +
+          lbl(B.x - 24, B.y - 10, n.b + "°") +
+          lbl(C.x, C.y + 26, "?")
+        );
+      }
+      return "";
+    }
 
     /* ---------- GAMIFICATION ---------- */
     const GKEY = "hnunin_gamify";
-    function defGame() { return { xp:0, totalCorrect:0, totalAnswered:0, answerStreak:0, bestStreak:0, dayStreak:0, lastDay:"", badges:{}, muted:false }; }
+    function defGame() { return { xp:0, totalCorrect:0, totalAnswered:0, answerStreak:0, bestStreak:0, dayStreak:0, lastDay:"", badges:{}, muted:false, byTopic:{}, byDiff:{} }; }
+    function gRecord(cat, diff, correct) {
+      const g = loadGame(); g.byTopic = g.byTopic || {}; g.byDiff = g.byDiff || {};
+      const bt = g.byTopic[cat] || { c: 0, a: 0 }; bt.a++; if (correct) bt.c++; g.byTopic[cat] = bt;
+      if (diff) { const bd = g.byDiff[diff] || { c: 0, a: 0 }; bd.a++; if (correct) bd.c++; g.byDiff[diff] = bd; }
+      saveGame(g);
+    }
     function loadGame() { try { const r = localStorage.getItem(GKEY); return Object.assign(defGame(), r ? JSON.parse(r) : {}); } catch (e) { return defGame(); } }
     function saveGame(g) { try { localStorage.setItem(GKEY, JSON.stringify(g)); } catch (e) {} }
     function levelFromXp(xp) { return Math.floor(xp / 100) + 1; }
@@ -661,6 +745,58 @@
         grid.appendChild(d);
       });
       show("screen-badges");
+    }
+    function accClass(p) { return p >= 80 ? "bar-good" : p >= 50 ? "bar-fair" : "bar-bad"; }
+    function barRow(label, c, a) {
+      const pct = a ? Math.round((c / a) * 100) : 0;
+      return `<div class="bar-row"><span class="bar-label">${label}</span>` +
+        `<span class="bar-track"><span class="bar-fill ${accClass(pct)}" style="width:${a ? pct : 0}%"></span></span>` +
+        `<span class="bar-val">${a ? pct + "%" : "—"}</span></div>`;
+    }
+    function showDashboard() {
+      const g = loadGame();
+      const overallPct = g.totalAnswered ? Math.round((g.totalCorrect / g.totalAnswered) * 100) : 0;
+      document.getElementById("dash-metrics").innerHTML =
+        `<div class="metric"><div class="metric-val">${levelFromXp(g.xp)}</div><div class="metric-lbl">רמה</div></div>` +
+        `<div class="metric"><div class="metric-val">${ltrIso(g.xp)}</div><div class="metric-lbl">XP</div></div>` +
+        `<div class="metric"><div class="metric-val">🔥 ${g.dayStreak}</div><div class="metric-lbl">ימים ברצף</div></div>` +
+        `<div class="metric"><div class="metric-val">${ltrIso(g.totalAnswered)}</div><div class="metric-lbl">שאלות</div></div>` +
+        `<div class="metric"><div class="metric-val">${overallPct}%</div><div class="metric-lbl">דיוק כולל</div></div>` +
+        `<div class="metric"><div class="metric-val">${g.bestStreak}</div><div class="metric-lbl">רצף שיא</div></div>`;
+
+      const bt = g.byTopic || {};
+      document.getElementById("dash-topics").innerHTML =
+        FILES.map(f => barRow(f.name, (bt[f.name] || {}).c || 0, (bt[f.name] || {}).a || 0)).join("") ||
+        `<div class="subtitle">אין עדיין נתונים.</div>`;
+
+      const bd = g.byDiff || {};
+      document.getElementById("dash-diffs").innerHTML =
+        DIFF_ORDER.map(d => barRow(diffLabel(d), (bd[d] || {}).c || 0, (bd[d] || {}).a || 0)).join("");
+
+      // weak area: lowest-accuracy topic with enough data
+      let weak = null;
+      FILES.forEach(f => { const s = bt[f.name]; if (s && s.a >= 5) { const p = s.c / s.a; if (!weak || p < weak.p) weak = { name: f.name, p, pct: Math.round(p * 100) }; } });
+      const wb = document.getElementById("dash-weak");
+      if (weak && weak.pct < 80) { wb.innerText = `💡 כדאי להתמקד ב: ${weak.name} (${weak.pct}% דיוק). נסו מצב אימון או תרגול טעויות.`; wb.classList.remove("hidden"); }
+      else wb.classList.add("hidden");
+
+      // recent exam trend (last 10)
+      const hist = loadResults().slice(-10);
+      const trend = document.getElementById("dash-trend");
+      const th = document.getElementById("dash-trend-h");
+      if (hist.length >= 2) {
+        const pts = hist.map(r => Math.round((r.score / r.total) * 100));
+        const w = 300, h = 80, n = pts.length, dx = w / (n - 1);
+        const coords = pts.map((p, i) => `${(i * dx).toFixed(0)},${(h - (p / 100) * (h - 10) - 4).toFixed(0)}`);
+        trend.innerHTML =
+          `<svg viewBox="0 0 ${w} ${h}" width="100%" height="${h}" style="color:var(--primary)">` +
+          `<polyline points="${coords.join(" ")}" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>` +
+          coords.map(c => { const [x, y] = c.split(","); return `<circle cx="${x}" cy="${y}" r="4" fill="currentColor"/>`; }).join("") +
+          `</svg><div class="subtitle" style="margin-top:4px">מ-${pts[0]}% עד ${pts[pts.length - 1]}% (${pts.length} מבחנים אחרונים)</div>`;
+        th.classList.remove("hidden"); trend.classList.remove("hidden");
+      } else { th.classList.add("hidden"); trend.innerHTML = `<div class="subtitle">עוד אין מספיק מבחנים למגמה.</div>`; }
+
+      show("screen-dashboard");
     }
     function toast(text, cls) {
       const w = document.getElementById("toast-wrap");
@@ -790,7 +926,7 @@
       document.getElementById("p-type").innerText = q.type || "";
       document.getElementById("p-instruction").innerText = bidiMath(q.instruction || "");
       document.getElementById("p-question").innerText = bidiMath(q.question);
-      renderFigureInto("p-figure", q.figure);
+      renderFigureInto("p-figure", q.figure || geoFromQuestion(q));
 
       // hint reset
       const hintBox = document.getElementById("p-hint");
@@ -857,7 +993,8 @@
       pShowExplanation(q, index);
       gAnswered();
       const correct = index === q.answer;
-      if (correct) { fireConfetti(); gCorrect(); } else gWrong();
+      if (correct) { playSuccessAnim(); gCorrect(); } else gWrong();
+      gRecord(q.category, q.difficulty, correct);
 
       // mistakes collection / mastery
       if (practiceMode === "mistakes") {
@@ -938,7 +1075,7 @@
       document.getElementById("e-type").innerText = q.type || "";
       document.getElementById("e-instruction").innerText = bidiMath(q.instruction || "");
       document.getElementById("e-question").innerText = bidiMath(q.question);
-      renderFigureInto("e-figure", q.figure);
+      renderFigureInto("e-figure", q.figure || geoFromQuestion(q));
       const box = document.getElementById("e-options");
       box.innerHTML = "";
       q.options.forEach((opt, idx) => {
@@ -1004,6 +1141,7 @@
         perTopic[q.category].total++;
         if (examAnswers[i] === q.answer) { correct++; perTopic[q.category].correct++; }
         else if (examAnswers[i] !== null) addMistake(fileForCategory(q.category), q);  // only actually-wrong, not skipped
+        if (examAnswers[i] !== null) gRecord(q.category, q.difficulty, examAnswers[i] === q.answer);
       });
       const total = examQ.length;
       const pct = Math.round((correct / total) * 100);
@@ -1053,7 +1191,7 @@
         const chosenText = chosen === null ? "לא נענתה"
           : (hasFig ? figNode(q.optionFigures[chosen], 40) : escapeHtml(ltrIso(q.options[chosen])));
         const correctText = hasFig ? figNode(q.optionFigures[q.answer], 40) : escapeHtml(ltrIso(q.options[q.answer]));
-        const stemFig = q.figure ? `<div class="figrow" style="margin:6px 0">${figNode(q.figure, 40)}</div>` : "";
+        const _stem = q.figure || geoFromQuestion(q); const stemFig = _stem ? `<div class="figrow" style="margin:6px 0">${figNode(_stem, 40)}</div>` : "";
         const wrongWhy = (!isOk && chosen !== null && q.wrongExplanations && q.wrongExplanations[chosen])
           ? `<div class="line" style="color:var(--error)">למה לא: ${escapeHtml(bidiMath(q.wrongExplanations[chosen]))}</div>` : "";
         item.innerHTML =
@@ -1211,64 +1349,132 @@
         showCelebration(playerName || "אלוף/ה", "תצוגה מקדימה של מחמאה 😉"));
     });
 
-    /* ---------- CONFETTI ---------- */
-    const confettiCanvas = document.getElementById("confetti-canvas");
-    const confettiCtx = confettiCanvas.getContext("2d");
-    let confettiParticles = [], confettiRAF = null;
-    const CONFETTI_COLORS = ["#4f46e5","#10b981","#f59e0b","#ef4444","#3b82f6","#ec4899","#fbbf24"];
-
-    function sizeCanvas() {
-      confettiCanvas.width = window.innerWidth;
-      confettiCanvas.height = window.innerHeight;
-    }
+    /* ---------- PARTICLE FX ENGINE ---------- */
+    const fxCanvas = document.getElementById("confetti-canvas");
+    const fxCtx = fxCanvas.getContext("2d");
+    let fxParticles = [], fxRAF = null;
+    const FX_COLORS = ["#4f46e5","#10b981","#f59e0b","#ef4444","#3b82f6","#ec4899","#fbbf24","#22d3ee"];
+    function fxColor() { return FX_COLORS[(Math.random() * FX_COLORS.length) | 0]; }
+    function sizeCanvas() { fxCanvas.width = window.innerWidth; fxCanvas.height = window.innerHeight; }
     window.addEventListener("resize", sizeCanvas);
     sizeCanvas();
 
-    function fireConfetti() {
-      sizeCanvas();
-      const cx = confettiCanvas.width / 2;
-      for (let i = 0; i < 140; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const speed = 4 + Math.random() * 7;
-        confettiParticles.push({
-          x: cx + (Math.random() - 0.5) * 120,
-          y: confettiCanvas.height * 0.28,
-          vx: Math.cos(angle) * speed,
-          vy: Math.sin(angle) * speed - 4,
-          size: 6 + Math.random() * 6,
-          color: CONFETTI_COLORS[(Math.random() * CONFETTI_COLORS.length) | 0],
-          rot: Math.random() * Math.PI,
-          vrot: (Math.random() - 0.5) * 0.3,
-          life: 90 + Math.random() * 40
-        });
+    function fxSpawn(list) {
+      for (const p of list) fxParticles.push(p);
+      if (!fxRAF) fxRAF = requestAnimationFrame(fxStep);
+    }
+    function fxDraw(p) {
+      fxCtx.save();
+      fxCtx.translate(p.x, p.y);
+      fxCtx.rotate(p.rot || 0);
+      fxCtx.globalAlpha = Math.max(0, Math.min(1, p.life / (p.fade || 40)));
+      const s = p.size;
+      if (p.emoji) {
+        fxCtx.globalAlpha = Math.max(0, Math.min(1, p.life / (p.fade || 40)));
+        fxCtx.font = s + "px serif"; fxCtx.textAlign = "center"; fxCtx.textBaseline = "middle";
+        fxCtx.fillText(p.emoji, 0, 0);
+      } else if (p.shape === "circle") {
+        fxCtx.fillStyle = p.color; fxCtx.beginPath(); fxCtx.arc(0, 0, s / 2, 0, 7); fxCtx.fill();
+      } else if (p.shape === "star") {
+        fxCtx.fillStyle = p.color; fxCtx.beginPath();
+        for (let i = 0; i < 10; i++) { const r = i % 2 ? s / 4 : s / 2, a = (i * 36 - 90) * Math.PI / 180; fxCtx[i ? "lineTo" : "moveTo"](Math.cos(a) * r, Math.sin(a) * r); }
+        fxCtx.closePath(); fxCtx.fill();
+      } else { // rect
+        fxCtx.fillStyle = p.color; fxCtx.fillRect(-s / 2, -s / 2, s, s * 0.6);
       }
-      if (!confettiRAF) confettiRAF = requestAnimationFrame(confettiStep);
+      fxCtx.restore();
+    }
+    function fxStep() {
+      fxCtx.clearRect(0, 0, fxCanvas.width, fxCanvas.height);
+      for (const p of fxParticles) {
+        p.vy += (p.g == null ? 0.18 : p.g);
+        p.vx *= (p.drag == null ? 0.99 : p.drag);
+        p.x += p.vx; p.y += p.vy; p.rot += (p.vrot || 0); p.life--;
+        if (p.spin) { const a = p.spin * p.age; p.x += Math.cos(a) * p.spinR; p.y += Math.sin(a) * p.spinR; }
+        p.age = (p.age || 0) + 1;
+        fxDraw(p);
+      }
+      fxParticles = fxParticles.filter(p => p.life > 0 && p.y < fxCanvas.height + 40 && p.y > -60);
+      if (fxParticles.length) fxRAF = requestAnimationFrame(fxStep);
+      else { fxCtx.clearRect(0, 0, fxCanvas.width, fxCanvas.height); fxRAF = null; }
     }
 
-    function confettiStep() {
-      confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-      confettiParticles.forEach(p => {
-        p.vy += 0.18;          // gravity
-        p.vx *= 0.99;
-        p.x += p.vx;
-        p.y += p.vy;
-        p.rot += p.vrot;
-        p.life--;
-        confettiCtx.save();
-        confettiCtx.translate(p.x, p.y);
-        confettiCtx.rotate(p.rot);
-        confettiCtx.fillStyle = p.color;
-        confettiCtx.globalAlpha = Math.max(0, Math.min(1, p.life / 40));
-        confettiCtx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
-        confettiCtx.restore();
-      });
-      confettiParticles = confettiParticles.filter(p => p.life > 0 && p.y < confettiCanvas.height + 20);
-      if (confettiParticles.length) {
-        confettiRAF = requestAnimationFrame(confettiStep);
-      } else {
-        confettiCtx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-        confettiRAF = null;
+    /* ---------- 10 SUCCESS ANIMATIONS (random each time) ---------- */
+    const W = () => fxCanvas.width, H = () => fxCanvas.height;
+    function anim_burst() {
+      sizeCanvas(); const cx = W() / 2, out = [];
+      for (let i = 0; i < 130; i++) { const a = Math.random() * 6.28, sp = 4 + Math.random() * 7;
+        out.push({ x: cx + (Math.random() - .5) * 120, y: H() * .3, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 4, size: 6 + Math.random() * 7, color: fxColor(), rot: Math.random() * 6, vrot: (Math.random() - .5) * .3, life: 90 + Math.random() * 40 }); }
+      fxSpawn(out);
+    }
+    function anim_cannons() {
+      sizeCanvas(); const out = [];
+      [[0, 1], [W(), -1]].forEach(([bx, dir]) => { for (let i = 0; i < 70; i++) { const sp = 8 + Math.random() * 9;
+        out.push({ x: bx, y: H(), vx: dir * sp * (0.5 + Math.random()), vy: -sp - Math.random() * 6, size: 6 + Math.random() * 7, color: fxColor(), rot: Math.random() * 6, vrot: (Math.random() - .5) * .3, life: 90 + Math.random() * 40 }); } });
+      fxSpawn(out);
+    }
+    function anim_rain() {
+      sizeCanvas(); const out = [];
+      for (let i = 0; i < 120; i++) out.push({ x: Math.random() * W(), y: -20 - Math.random() * H() * .5, vx: (Math.random() - .5) * 1.5, vy: 3 + Math.random() * 4, g: 0.03, size: 7 + Math.random() * 7, color: fxColor(), rot: Math.random() * 6, vrot: (Math.random() - .5) * .3, life: 120 });
+      fxSpawn(out);
+    }
+    function anim_stars() {
+      sizeCanvas(); const cx = W() / 2, cy = H() * .35, out = [];
+      for (let i = 0; i < 90; i++) { const a = Math.random() * 6.28, sp = 3 + Math.random() * 8;
+        out.push({ x: cx, y: cy, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, g: 0.05, drag: 0.97, size: 12 + Math.random() * 14, color: fxColor(), shape: "star", rot: Math.random() * 6, vrot: (Math.random() - .5) * .4, life: 80 + Math.random() * 30 }); }
+      fxSpawn(out);
+    }
+    function anim_fireworks() {
+      sizeCanvas();
+      for (let k = 0; k < 3; k++) setTimeout(() => { const cx = W() * (0.2 + Math.random() * 0.6), cy = H() * (0.2 + Math.random() * 0.3), col = fxColor(), out = [];
+        for (let i = 0; i < 60; i++) { const a = (i / 60) * 6.28, sp = 3 + Math.random() * 4;
+          out.push({ x: cx, y: cy, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, g: 0.06, drag: 0.96, size: 5 + Math.random() * 4, color: col, shape: "circle", life: 60 + Math.random() * 20 }); }
+        fxSpawn(out); }, k * 260);
+    }
+    function anim_spiral() {
+      sizeCanvas(); const cx = W() / 2, cy = H() * .35, out = [];
+      for (let i = 0; i < 80; i++) { const a = i * 0.4, r = i * 1.2;
+        out.push({ x: cx, y: cy, vx: Math.cos(a) * (1 + r * .04), vy: Math.sin(a) * (1 + r * .04) - 1, g: 0.04, size: 7 + Math.random() * 6, color: fxColor(), shape: Math.random() < .5 ? "circle" : "rect", rot: a, vrot: .2, life: 80 + i }); }
+      fxSpawn(out);
+    }
+    function anim_emojiFountain() {
+      sizeCanvas(); const cx = W() / 2, set = ["🎉","✨","⭐","🌟","🎊"], out = [];
+      for (let i = 0; i < 40; i++) { const a = Math.random() * 6.28, sp = 4 + Math.random() * 7;
+        out.push({ x: cx, y: H() * .32, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp - 5, g: 0.22, size: 22 + Math.random() * 16, emoji: set[(Math.random() * set.length) | 0], rot: 0, life: 80 + Math.random() * 30, fade: 30 }); }
+      fxSpawn(out);
+    }
+    function anim_twinkle() {
+      sizeCanvas(); const out = [];
+      for (let i = 0; i < 60; i++) out.push({ x: Math.random() * W(), y: Math.random() * H() * .7, vx: 0, vy: 0, g: 0, drag: 1, size: 10 + Math.random() * 16, color: fxColor(), shape: "star", rot: Math.random() * 6, vrot: .1, life: 30 + Math.random() * 30, fade: 30 });
+      fxSpawn(out);
+    }
+    function anim_balloons() { floatEmojis(["🎈","🎈","🎈"], 12); }
+    function anim_bigPop() { popEmoji(pick(["🏆","🥳","👏","💪","🌟","🎯","😃","🚀","🦄","🎉"])); }
+
+    const SUCCESS_ANIMS = [anim_burst, anim_cannons, anim_rain, anim_stars, anim_fireworks, anim_spiral, anim_emojiFountain, anim_twinkle, anim_balloons, anim_bigPop];
+    function playSuccessAnim() { SUCCESS_ANIMS[(Math.random() * SUCCESS_ANIMS.length) | 0](); }
+    // keep confetti available for badges/celebration
+    function fireConfetti() { anim_burst(); }
+
+    /* DOM effects */
+    function floatEmojis(list, count) {
+      for (let i = 0; i < count; i++) {
+        const s = document.createElement("div");
+        s.className = "fx-float";
+        s.textContent = list[(Math.random() * list.length) | 0];
+        s.style.left = (5 + Math.random() * 90) + "vw";
+        s.style.fontSize = (28 + Math.random() * 22) + "px";
+        s.style.animationDuration = (2.2 + Math.random() * 1.3) + "s";
+        s.style.setProperty("--drift", ((Math.random() - .5) * 80) + "px");
+        document.body.appendChild(s);
+        setTimeout(() => s.remove(), 3600);
       }
+    }
+    function popEmoji(emoji) {
+      const d = document.createElement("div");
+      d.className = "fx-pop"; d.textContent = emoji;
+      document.body.appendChild(d);
+      setTimeout(() => d.remove(), 1100);
     }
   </script>
 </body>
