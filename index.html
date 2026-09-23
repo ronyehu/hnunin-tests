@@ -466,6 +466,14 @@
         b.classList.toggle("active", b.getAttribute("data-diff") === d));
     }
     function diffLabel(d) { return (DIFF_EMOJI[d] || "") + " " + d; }
+    // RTL fix: wrap math expressions / number runs in an LTR isolate so
+    // "44 - 7 × 5 + 6" and "-33" render left-to-right inside Hebrew text.
+    const LRI = "⁦", PDI = "⁩";
+    function bidiMath(s) {
+      if (s == null) return s;
+      return String(s).replace(/\d[\d.]*(?:\s*[,+\-×÷*/=:]\s*\d[\d.]*)+/g, m => LRI + m + PDI);
+    }
+    function ltrIso(s) { return LRI + (s == null ? "" : String(s)) + PDI; }
     let lastScrollY = 0;
     function scrollTop() { window.scrollTo(0, 0); lastScrollY = 0; document.body.classList.remove("chrome-hidden"); }
     // auto-hide non-essential top chrome on scroll-down, reveal on scroll-up (mobile)
@@ -780,8 +788,8 @@
       document.getElementById("p-badge").innerText = badge;
       document.getElementById("p-progress").innerText = `שאלה ${pIndex + 1} מתוך ${pQuestions.length}`;
       document.getElementById("p-type").innerText = q.type || "";
-      document.getElementById("p-instruction").innerText = q.instruction || "";
-      document.getElementById("p-question").innerText = q.question;
+      document.getElementById("p-instruction").innerText = bidiMath(q.instruction || "");
+      document.getElementById("p-question").innerText = bidiMath(q.question);
       renderFigureInto("p-figure", q.figure);
 
       // hint reset
@@ -795,7 +803,7 @@
         const btn = document.createElement("button");
         btn.className = "btn-option";
         if (q.optionFigures) { btn.classList.add("hasfig"); btn.innerHTML = figNode(q.optionFigures[idx], 54); }
-        else btn.innerText = opt;
+        else btn.innerText = ltrIso(opt);
         if (answered === null) {
           btn.onclick = () => pAnswer(idx);
         } else {
@@ -823,7 +831,7 @@
     }
     function pShowExplanation(q, chosen) {
       const exp = document.getElementById("p-explanation");
-      exp.innerText = "הסבר: " + q.explanation;
+      exp.innerText = "הסבר: " + bidiMath(q.explanation);
       exp.classList.remove("hidden");
       // remove old wrong-why
       const old = document.getElementById("p-wrong-why");
@@ -833,7 +841,7 @@
         const div = document.createElement("div");
         div.id = "p-wrong-why";
         div.className = "wrong-why";
-        div.innerText = "למה לא: " + (why || "זו אינה התשובה הנכונה.");
+        div.innerText = "למה לא: " + bidiMath(why || "זו אינה התשובה הנכונה.");
         exp.parentNode.insertBefore(div, exp);
       }
     }
@@ -876,7 +884,7 @@
     function pShowHint() {
       const q = pQuestions[pIndex];
       const box = document.getElementById("p-hint");
-      box.innerText = "💡 " + (q.hint || "אין רמז לשאלה זו.");
+      box.innerText = "💡 " + bidiMath(q.hint || "אין רמז לשאלה זו.");
       box.classList.remove("hidden");
     }
     function pPrev() {
@@ -928,8 +936,8 @@
       document.getElementById("e-progress").innerText =
         `שאלה ${examIndex + 1} מתוך ${examQ.length} · ${q.category}`;
       document.getElementById("e-type").innerText = q.type || "";
-      document.getElementById("e-instruction").innerText = q.instruction || "";
-      document.getElementById("e-question").innerText = q.question;
+      document.getElementById("e-instruction").innerText = bidiMath(q.instruction || "");
+      document.getElementById("e-question").innerText = bidiMath(q.question);
       renderFigureInto("e-figure", q.figure);
       const box = document.getElementById("e-options");
       box.innerHTML = "";
@@ -937,7 +945,7 @@
         const b = document.createElement("button");
         b.className = "btn-option" + (examAnswers[examIndex] === idx ? " selected" : "");
         if (q.optionFigures) { b.classList.add("hasfig"); b.innerHTML = figNode(q.optionFigures[idx], 54); }
-        else b.innerText = opt;
+        else b.innerText = ltrIso(opt);
         b.onclick = () => eSelect(idx);
         box.appendChild(b);
       });
@@ -1017,12 +1025,12 @@
 
       document.getElementById("r-title").innerText =
         `כל הכבוד, ${playerName}!`;
-      document.getElementById("r-score").innerText = `${correct}/${total}`;
+      document.getElementById("r-score").innerText = ltrIso(`${correct}/${total}`);
       let sub = `ציון: ${pct}% · רמה: ${diffLabel(selectedDifficulty)} · זמן: ${fmtDuration(durationSec)}`;
       if (timedOut) sub += " · הזמן נגמר";
       sub += " · " + praise(pct);
       if (saved) sub += " · נשמר בהיסטוריה ✓";
-      document.getElementById("r-sub").innerText = sub;
+      document.getElementById("r-sub").innerText = bidiMath(sub);
 
       const tBox = document.getElementById("r-topics");
       tBox.innerHTML = "";
@@ -1043,18 +1051,18 @@
         item.className = "review-item";
         const hasFig = !!q.optionFigures;
         const chosenText = chosen === null ? "לא נענתה"
-          : (hasFig ? figNode(q.optionFigures[chosen], 40) : escapeHtml(q.options[chosen]));
-        const correctText = hasFig ? figNode(q.optionFigures[q.answer], 40) : escapeHtml(q.options[q.answer]);
+          : (hasFig ? figNode(q.optionFigures[chosen], 40) : escapeHtml(ltrIso(q.options[chosen])));
+        const correctText = hasFig ? figNode(q.optionFigures[q.answer], 40) : escapeHtml(ltrIso(q.options[q.answer]));
         const stemFig = q.figure ? `<div class="figrow" style="margin:6px 0">${figNode(q.figure, 40)}</div>` : "";
         const wrongWhy = (!isOk && chosen !== null && q.wrongExplanations && q.wrongExplanations[chosen])
-          ? `<div class="line" style="color:var(--error)">למה לא: ${escapeHtml(q.wrongExplanations[chosen])}</div>` : "";
+          ? `<div class="line" style="color:var(--error)">למה לא: ${escapeHtml(bidiMath(q.wrongExplanations[chosen]))}</div>` : "";
         item.innerHTML =
-          `<div class="q">${i + 1}. ${escapeHtml(q.question)}</div>` +
+          `<div class="q">${i + 1}. ${escapeHtml(bidiMath(q.question))}</div>` +
           stemFig +
           `<div class="line">תשובתך: <span class="${isOk ? "ok" : "bad"}">${chosenText}</span></div>` +
           wrongWhy +
           (isOk ? "" : `<div class="line">התשובה הנכונה: <span class="ok">${correctText}</span></div>`) +
-          `<div class="line" style="color:var(--muted)">${escapeHtml(q.explanation)}</div>`;
+          `<div class="line" style="color:var(--muted)">${escapeHtml(bidiMath(q.explanation))}</div>`;
         rev.appendChild(item);
       });
 
@@ -1062,7 +1070,7 @@
       show("screen-results");
       if (pct >= GOOD_THRESHOLD) {
         soundFinish();
-        setTimeout(() => showCelebration(playerName, `ציון ${pct}% · ${correct}/${total}`), 350);
+        setTimeout(() => showCelebration(playerName, bidiMath(`ציון ${pct}% · ${correct}/${total}`)), 350);
       }
     }
     function praise(pct) {
@@ -1106,11 +1114,11 @@
     function fmtDateTime(iso) {
       const d = new Date(iso);
       const p = n => String(n).padStart(2, "0");
-      return `${p(d.getDate())}/${p(d.getMonth() + 1)}/${d.getFullYear()} ${p(d.getHours())}:${p(d.getMinutes())}`;
+      return ltrIso(`${p(d.getDate())}/${p(d.getMonth() + 1)}/${d.getFullYear()}`) + " " + ltrIso(`${p(d.getHours())}:${p(d.getMinutes())}`);
     }
     function fmtDuration(sec) {
       const m = Math.floor(sec / 60), s = sec % 60;
-      return `${m}:${String(s).padStart(2, "0")} דק'`;
+      return ltrIso(`${m}:${String(s).padStart(2, "0")}`) + " דק'";
     }
     function showHistory() {
       const all = loadResults().slice().reverse();  // newest first
@@ -1135,7 +1143,7 @@
         d.className = "review-item res-" + band;
         d.innerHTML =
           `<summary style="color:var(--text);margin-bottom:0;display:flex;justify-content:space-between;align-items:center;gap:8px;">` +
-            `<span><b>${escapeHtml(r.player || "—")}</b> · ${r.score}/${r.total}` +
+            `<span><b>${escapeHtml(r.player || "—")}</b> · ${ltrIso(r.score + "/" + r.total)}` +
               (r.timedOut ? " ⏰" : "") + `</span>` +
             `<span class="pill pill-${band}">${pct}%</span>` +
           `</summary>` +
