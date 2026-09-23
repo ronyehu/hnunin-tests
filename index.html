@@ -4,6 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>אימון למבחני מחוננים ומצוינות</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#4f46e5">
+  <link rel="apple-touch-icon" href="icon.svg">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="מחוננים">
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => navigator.serviceWorker.register("sw.js").catch(() => {}));
+    }
+  </script>
   <script>
     // set theme before render to avoid flash of wrong theme
     (function () {
@@ -232,6 +242,8 @@
     .diff-btn:hover { border-color: var(--primary); }
     .diff-btn.active { border-color: var(--primary); background: var(--badge-bg); color: var(--primary); }
     .diff-emoji { font-size: 18px; }
+    .adaptive-row { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; font-size: 14px; color: var(--text); cursor: pointer; }
+    .adaptive-row input { width: 18px; height: 18px; accent-color: var(--primary); }
     /* instruction + type */
     .qmeta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
     .type-badge { background: var(--soft); color: var(--muted); padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
@@ -315,10 +327,15 @@
         <button class="diff-btn" data-diff="קשה"   onclick="selectDifficulty('קשה')"><span class="diff-emoji">🔥</span> קשה</button>
         <button class="diff-btn" data-diff="מומחה" onclick="selectDifficulty('מומחה')"><span class="diff-emoji">🧠</span> מומחה</button>
       </div>
+      <label class="adaptive-row">
+        <input type="checkbox" id="adaptive-toggle" onchange="onAdaptiveToggle()">
+        <span>🎯 רמה מותאמת — הרמה תעלה ותרד לפי ההצלחה (באימון)</span>
+      </label>
       <div class="mode-buttons">
         <button class="btn btn-secondary" onclick="startPractice()">מצב אימון</button>
         <button id="btn-exam" class="btn" onclick="startExam()">מבחן (10 דקות)</button>
       </div>
+      <button id="btn-mistakes" class="btn btn-secondary" style="width:100%;margin-top:12px;" onclick="startMistakes()">🔁 תרגול טעויות (0)</button>
       <div class="mode-buttons" style="margin-top:12px;">
         <button class="btn btn-secondary" onclick="showHistory()">היסטוריית תוצאות</button>
         <button class="btn btn-secondary" onclick="showBadges()">🏅 הישגים</button>
@@ -678,33 +695,89 @@
       show("screen-start");
     }
 
+    /* ---------- MISTAKES STORE (תרגול טעויות) ---------- */
+    const MKEY = "hnunin_mistakes";
+    function loadMistakes() { try { const a = JSON.parse(localStorage.getItem(MKEY) || "[]"); return Array.isArray(a) ? a : []; } catch (e) { return []; } }
+    function saveMistakes(a) { try { localStorage.setItem(MKEY, JSON.stringify(a)); } catch (e) {} }
+    function addMistake(file, q) {
+      if (!file) return;
+      const a = loadMistakes(); const uid = file + "#" + q.id;
+      if (a.some(m => m.uid === uid)) return;
+      const clean = Object.assign({}, q); delete clean._uid;
+      a.push({ uid, file, q: clean });
+      while (a.length > 300) a.shift();
+      saveMistakes(a); refreshMistakesBtn();
+    }
+    function removeMistake(uid) { saveMistakes(loadMistakes().filter(m => m.uid !== uid)); refreshMistakesBtn(); }
+    function refreshMistakesBtn() {
+      const n = loadMistakes().length; const b = document.getElementById("btn-mistakes");
+      if (b) { b.innerText = `🔁 תרגול טעויות (${n})`; b.disabled = n === 0; }
+    }
+    function fileForCategory(cat) { const f = FILES.find(x => x.name === cat); return f ? f.file : ""; }
+
     /* ---------- PRACTICE MODE ---------- */
     let pQuestions = [], pIndex = 0, pAnswers = [];  // pAnswers[i] = chosen index or null
+    let practiceMode = "topic";                       // "topic" | "mistakes"
+    let pAdaptive = false, pBankByLevel = null, pAdaptLevel = "בינוני", pAdaptStreak = 0, pAdaptSeen = new Set();
+    const DIFF_ORDER = ["בינוני", "קשה", "מומחה"];
+
+    function onAdaptiveToggle() { pAdaptive = document.getElementById("adaptive-toggle").checked; }
 
     function startPractice() {
+      practiceMode = "topic";
       show("screen-practice");
       loadTopic();
     }
     async function loadTopic() {
+      practiceMode = "topic";
       const file = document.getElementById("topic-select").value;
       const qEl = document.getElementById("p-question");
       qEl.innerText = "טוען שאלות...";
       try {
         const res = await fetch(file);
         const bank = await res.json();
-        pQuestions = shuffle(byDifficulty(bank).slice());
-        pIndex = 0;
-        pAnswers = new Array(pQuestions.length).fill(null);
+        const tag = q => Object.assign({}, q, { _uid: file + "#" + q.id });
+        if (pAdaptive) {
+          pBankByLevel = {};
+          DIFF_ORDER.forEach(d => pBankByLevel[d] = shuffle(bank.filter(q => q.difficulty === d).map(tag)));
+          pAdaptLevel = DIFF_ORDER.includes(selectedDifficulty) ? selectedDifficulty : "בינוני";
+          pAdaptStreak = 0; pAdaptSeen = new Set();
+          pQuestions = [nextAdaptiveQ()]; pAnswers = [null]; pIndex = 0;
+        } else {
+          pQuestions = shuffle(byDifficulty(bank).map(tag));
+          pIndex = 0; pAnswers = new Array(pQuestions.length).fill(null);
+        }
         pRender();
       } catch (e) {
         qEl.innerText = "שגיאה בטעינת הקובץ (" + file + ").";
       }
     }
+    function nextAdaptiveQ() {
+      let lvl = pAdaptLevel, pool = pBankByLevel[lvl].filter(q => !pAdaptSeen.has(q._uid));
+      if (!pool.length) {
+        for (const d of DIFF_ORDER) { const p = pBankByLevel[d].filter(q => !pAdaptSeen.has(q._uid)); if (p.length) { lvl = d; pool = p; break; } }
+      }
+      if (!pool.length) { pAdaptSeen = new Set(); pool = pBankByLevel[lvl]; }
+      const q = pool[Math.floor(Math.random() * pool.length)];
+      pAdaptSeen.add(q._uid);
+      return q;
+    }
+    function startMistakes() {
+      const a = loadMistakes();
+      if (!a.length) { alert("אין עדיין טעויות שמורות. הן נאספות אוטומטית בכל פעם שטועים בשאלה."); return; }
+      practiceMode = "mistakes"; pAdaptive = false;
+      pQuestions = shuffle(a.map(m => Object.assign({}, m.q, { _uid: m.uid })));
+      pIndex = 0; pAnswers = new Array(pQuestions.length).fill(null);
+      show("screen-practice"); pRender();
+    }
     function pRender() {
-      if (!pQuestions.length) { document.getElementById("p-question").innerText = "אין שאלות ברמה זו."; return; }
+      if (!pQuestions.length) { document.getElementById("p-question").innerText = "אין שאלות."; return; }
       const q = pQuestions[pIndex];
       const answered = pAnswers[pIndex];
-      document.getElementById("p-badge").innerText = q.category + " · " + diffLabel(q.difficulty || selectedDifficulty);
+      let badge = q.category + " · " + diffLabel(q.difficulty || selectedDifficulty);
+      if (practiceMode === "mistakes") badge = "🔁 " + badge;
+      else if (pAdaptive) badge = "🎯 " + badge;
+      document.getElementById("p-badge").innerText = badge;
       document.getElementById("p-progress").innerText = `שאלה ${pIndex + 1} מתוך ${pQuestions.length}`;
       document.getElementById("p-type").innerText = q.type || "";
       document.getElementById("p-instruction").innerText = q.instruction || "";
@@ -738,8 +811,9 @@
 
       document.getElementById("p-prev").disabled = pIndex === 0;
       document.getElementById("p-next").disabled = false;
+      const atEnd = pIndex === pQuestions.length - 1;
       document.getElementById("p-next").innerText =
-        pIndex === pQuestions.length - 1 ? "סיום" : "הבא";
+        (atEnd && !(pAdaptive && practiceMode !== "mistakes")) ? "סיום" : "הבא";
       scrollTop();
     }
     function pHideExplanation() {
@@ -774,8 +848,30 @@
       });
       pShowExplanation(q, index);
       gAnswered();
-      if (index === q.answer) { fireConfetti(); gCorrect(); }
-      else gWrong();
+      const correct = index === q.answer;
+      if (correct) { fireConfetti(); gCorrect(); } else gWrong();
+
+      // mistakes collection / mastery
+      if (practiceMode === "mistakes") {
+        if (correct && q._uid) { removeMistake(q._uid); toast("הוסר מהטעויות ✓"); }
+      } else if (!correct && q._uid) {
+        addMistake(q._uid.split("#")[0], q);
+      }
+
+      // adaptive level adjustment (topic practice only)
+      if (pAdaptive && practiceMode !== "mistakes") {
+        const i = DIFF_ORDER.indexOf(pAdaptLevel);
+        if (correct) {
+          pAdaptStreak++;
+          if (pAdaptStreak >= 3 && i < DIFF_ORDER.length - 1) {
+            pAdaptLevel = DIFF_ORDER[i + 1]; pAdaptStreak = 0;
+            toast("⬆️ עולים רמה: " + diffLabel(pAdaptLevel));
+          }
+        } else {
+          pAdaptStreak = 0;
+          if (i > 0) { pAdaptLevel = DIFF_ORDER[i - 1]; toast("⬇️ מורידים רמה: " + diffLabel(pAdaptLevel)); }
+        }
+      }
     }
     function pShowHint() {
       const q = pQuestions[pIndex];
@@ -787,8 +883,12 @@
       if (pIndex > 0) { pIndex--; pRender(); }
     }
     function pNext() {
-      if (pIndex < pQuestions.length - 1) { pIndex++; pRender(); }
-      else { alert("סיימת את כל השאלות בנושא זה!"); goStart(); }
+      if (pIndex < pQuestions.length - 1) { pIndex++; pRender(); return; }
+      if (pAdaptive && practiceMode !== "mistakes") {  // endless adaptive: serve next
+        pQuestions.push(nextAdaptiveQ()); pAnswers.push(null); pIndex++; pRender(); return;
+      }
+      if (practiceMode === "mistakes") { alert("סיימת לתרגל את הטעויות! 🎉"); goStart(); return; }
+      alert("סיימת את כל השאלות בנושא זה!"); goStart();
     }
 
     /* ---------- EXAM MODE ---------- */
@@ -895,6 +995,7 @@
       examQ.forEach((q, i) => {
         perTopic[q.category].total++;
         if (examAnswers[i] === q.answer) { correct++; perTopic[q.category].correct++; }
+        else addMistake(fileForCategory(q.category), q);  // collect for תרגול טעויות
       });
       const total = examQ.length;
       const pct = Math.round((correct / total) * 100);
@@ -1095,6 +1196,7 @@
       touchDay();
       document.getElementById("mute-toggle").innerText = loadGame().muted ? "🔇" : "🔊";
       refreshStats();
+      refreshMistakesBtn();
       checkBadges();
       const title = document.querySelector("#screen-start h1");
       if (title) title.addEventListener("click", () =>

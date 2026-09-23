@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <rect width="512" height="512" rx="96" fill="#4f46e5"/>
+  <!-- lightbulb (idea) -->
+  <g fill="#ffffff">
+    <path d="M256 92c-79 0-143 61-143 137 0 47 24 84 58 110 12 9 19 19 21 33l4 26h120l4-26c2-14 9-24 21-33 34-26 58-63 58-110 0-76-64-137-143-137z"/>
+    <rect x="196" y="410" width="120" height="28" rx="14"/>
+    <rect x="212" y="446" width="88" height="24" rx="12"/>
+  </g>
+  <!-- filament sparkle -->
+  <g fill="#4f46e5">
+    <path d="M256 168l16 40 40 16-40 16-16 40-16-40-40-16 40-16z"/>
+  </g>
+</svg>
