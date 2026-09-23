@@ -1003,7 +1003,7 @@
       examQ.forEach((q, i) => {
         perTopic[q.category].total++;
         if (examAnswers[i] === q.answer) { correct++; perTopic[q.category].correct++; }
-        else addMistake(fileForCategory(q.category), q);  // collect for תרגול טעויות
+        else if (examAnswers[i] !== null) addMistake(fileForCategory(q.category), q);  // only actually-wrong, not skipped
       });
       const total = examQ.length;
       const pct = Math.round((correct / total) * 100);
