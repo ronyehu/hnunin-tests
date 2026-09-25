@@ -872,6 +872,11 @@
     }
     function fileForCategory(cat) { const f = FILES.find(x => x.name === cat); return f ? f.file : ""; }
 
+    /* ---------- SEEN store: questions already answered on this device ---------- */
+    const SEENKEY = "hnunin_seen";
+    function loadSeen() { try { const o = JSON.parse(localStorage.getItem(SEENKEY) || "{}"); return o && typeof o === "object" ? o : {}; } catch (e) { return {}; } }
+    function seenAdd(uid) { if (!uid) return; const o = loadSeen(); if (!o[uid]) { o[uid] = 1; try { localStorage.setItem(SEENKEY, JSON.stringify(o)); } catch (e) {} } }
+
     /* ---------- PRACTICE MODE ---------- */
     let pQuestions = [], pIndex = 0, pAnswers = [];  // pAnswers[i] = chosen index or null
     let practiceMode = "topic";                       // "topic" | "mistakes"
@@ -893,15 +898,21 @@
       try {
         const res = await fetch(file);
         const bank = await res.json();
+        const seen = loadSeen();
         const tag = q => Object.assign({}, q, { _uid: file + "#" + q.id });
+        const fresh = bank.filter(q => !seen[file + "#" + q.id]);  // skip already-answered
         if (pAdaptive) {
           pBankByLevel = {};
-          DIFF_ORDER.forEach(d => pBankByLevel[d] = shuffle(bank.filter(q => q.difficulty === d).map(tag)));
+          DIFF_ORDER.forEach(d => pBankByLevel[d] = shuffle(fresh.filter(q => q.difficulty === d).map(tag)));
+          if (!fresh.length) { alert("כל הכבוד! ענית כבר על כל השאלות בנושא הזה. נסה נושא אחר או תרגול טעויות."); goStart(); return; }
           pAdaptLevel = DIFF_ORDER.includes(selectedDifficulty) ? selectedDifficulty : "בינוני";
+          if (!pBankByLevel[pAdaptLevel].length) pAdaptLevel = DIFF_ORDER.find(d => pBankByLevel[d].length) || pAdaptLevel;
           pAdaptStreak = 0; pAdaptSeen = new Set();
           pQuestions = [nextAdaptiveQ()]; pAnswers = [null]; pIndex = 0;
         } else {
-          pQuestions = shuffle(byDifficulty(bank).map(tag));
+          const pool = fresh.filter(q => q.difficulty === selectedDifficulty);
+          if (!pool.length) { alert("כל הכבוד! ענית כבר על כל השאלות בנושא הזה ברמה " + selectedDifficulty + ". נסה רמה או נושא אחרים, או תרגול טעויות."); goStart(); return; }
+          pQuestions = shuffle(pool.map(tag));
           pIndex = 0; pAnswers = new Array(pQuestions.length).fill(null);
         }
         pRender();
@@ -935,7 +946,8 @@
       if (practiceMode === "mistakes") badge = "🔁 " + badge;
       else if (pAdaptive) badge = "🎯 " + badge;
       document.getElementById("p-badge").innerText = badge;
-      document.getElementById("p-progress").innerText = `שאלה ${pIndex + 1} מתוך ${pQuestions.length}`;
+      document.getElementById("p-progress").innerText =
+        (practiceMode === "mistakes") ? `שאלה ${pIndex + 1} מתוך ${pQuestions.length}` : `שאלה ${pIndex + 1}`;
       document.getElementById("p-type").innerText = q.type || "";
       document.getElementById("p-instruction").innerText = bidiMath(q.instruction || "");
       document.getElementById("p-question").innerText = bidiMath(q.question);
@@ -1008,6 +1020,7 @@
       const correct = index === q.answer;
       if (correct) { playSuccessAnim(); gCorrect(); } else gWrong();
       gRecord(q.category, q.difficulty, correct);
+      seenAdd(q._uid);
 
       // mistakes collection / mastery
       if (practiceMode === "mistakes") {
@@ -1065,8 +1078,15 @@
           FILES.map(f => fetch(f.file).then(r => r.json()))
         );
         examQ = [];
-        banks.forEach(bank => {
-          examQ.push(...shuffle(byDifficulty(bank, EXAM_PER_TOPIC).slice()).slice(0, EXAM_PER_TOPIC));
+        const seen = loadSeen();
+        banks.forEach((bank, idx) => {
+          const file = FILES[idx].file;
+          const diffPool = byDifficulty(bank, EXAM_PER_TOPIC);
+          const unseen = diffPool.filter(q => !seen[file + "#" + q.id]);
+          const pool = unseen.length >= EXAM_PER_TOPIC
+            ? unseen
+            : unseen.concat(shuffle(diffPool.filter(q => seen[file + "#" + q.id])));  // top up if not enough fresh
+          examQ.push(...shuffle(pool.slice()).slice(0, EXAM_PER_TOPIC));
         });
         shuffle(examQ);
         examIndex = 0;
@@ -1154,7 +1174,7 @@
         perTopic[q.category].total++;
         if (examAnswers[i] === q.answer) { correct++; perTopic[q.category].correct++; }
         else if (examAnswers[i] !== null) addMistake(fileForCategory(q.category), q);  // only actually-wrong, not skipped
-        if (examAnswers[i] !== null) gRecord(q.category, q.difficulty, examAnswers[i] === q.answer);
+        if (examAnswers[i] !== null) { gRecord(q.category, q.difficulty, examAnswers[i] === q.answer); seenAdd(fileForCategory(q.category) + "#" + q.id); }
       });
       const total = examQ.length;
       const pct = Math.round((correct / total) * 100);
