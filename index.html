@@ -514,7 +514,8 @@
     const LRI = "⁦", PDI = "⁩";
     function bidiMath(s) {
       if (s == null) return s;
-      return String(s).replace(/\d[\d.]*(?:\s*[,+\-×÷*/=:]\s*\d[\d.]*)+/g, m => LRI + m + PDI);
+      // operands = number or single latin letter; operators include the invented-op symbol ✦
+      return String(s).replace(/(?:\d[\d.]*|[a-zA-Z])(?:\s*[,+\-×÷*/=:✦★◆◇⊕]\s*(?:\d[\d.]*|[a-zA-Z]))+/g, m => LRI + m + PDI);
     }
     function ltrIso(s) { return LRI + (s == null ? "" : String(s)) + PDI; }
     let lastScrollY = 0;
