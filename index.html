@@ -509,6 +509,7 @@
 
     function selectDifficulty(d) {
       selectedDifficulty = d;
+      try { localStorage.setItem("hnunin_diff", d); } catch (e) {}
       document.querySelectorAll("#diff-grid .diff-btn").forEach(b =>
         b.classList.toggle("active", b.getAttribute("data-diff") === d));
     }
@@ -1397,7 +1398,9 @@
 
     /* Easter egg: click the start-screen title to preview a random compliment */
     document.addEventListener("DOMContentLoaded", () => {
-      selectDifficulty(selectedDifficulty);   // mark default active
+      // restore last-chosen difficulty on this device
+      let savedDiff; try { savedDiff = localStorage.getItem("hnunin_diff"); } catch (e) {}
+      selectDifficulty(["בינוני", "קשה", "מומחה"].includes(savedDiff) ? savedDiff : selectedDifficulty);
       // remember player name on this device
       try {
         const savedName = localStorage.getItem("hnunin_name");

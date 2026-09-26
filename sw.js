@@ -1,5 +1,5 @@
 /* Service worker: network-first (fresh when online), cache fallback offline. */
-const CACHE = "hnunin-v9";
+const CACHE = "hnunin-v10";
 const ASSETS = [
   "./",
   "index.html",
