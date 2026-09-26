@@ -265,6 +265,8 @@
     .qmeta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px; }
     .type-badge { background: var(--soft); color: var(--muted); padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
     .instruction { font-size: 14px; color: var(--muted); margin-bottom: 14px; line-height: 1.5; }
+    .math-line { direction: ltr; unicode-bidi: isolate; text-align: center; font-weight: 700;
+      margin: 10px auto; font-size: 1.08em; letter-spacing: .5px; font-variant-numeric: tabular-nums; }
     /* hint */
     .hint-box {
       margin-top: 14px; padding: 12px; border-radius: 8px;
@@ -520,7 +522,7 @@
     // Match a contiguous math/number run (numbers, coefficients like 3x, operators,
     // the invented-op symbol ✦, commas, parens, ² ) so it can be isolated LTR.
     // Runs are alnum-bounded and stop at Hebrew letters.
-    const MATH_RE = /[0-9A-Za-z][0-9A-Za-z.,+\-×÷*/=:✦★◆◇⊕()²\s_?…]*[0-9A-Za-z²)_?…]/g;
+    const MATH_RE = /[0-9A-Za-z(][0-9A-Za-z.,+\-×÷*/=:✦★◆◇⊕()²\s_?…]*[0-9A-Za-z²)_?…]/g;
     function bidiMath(s) {  // control-char isolate (for innerText contexts)
       if (s == null) return s;
       return String(s).replace(MATH_RE, m => LRI + m + PDI);
@@ -534,6 +536,22 @@
       while ((m = MATH_RE.exec(s)) !== null) {
         out += escapeHtml(s.slice(last, m.index)) + '<bdi dir="ltr">' + escapeHtml(m[0]) + "</bdi>";
         last = m.index + m[0].length;
+      }
+      return out + escapeHtml(s.slice(last));
+    }
+    // like bidiHtml, but real expressions/sequences (with an operator or comma list)
+    // become their own centered LTR line so they don't tangle with the Hebrew text.
+    const OP_RE = /[+\-×÷*/=:✦★◆◇⊕,]/;
+    function bidiBlocks(s) {
+      if (s == null) return "";
+      s = String(s); let out = "", last = 0, m; MATH_RE.lastIndex = 0;
+      while ((m = MATH_RE.exec(s)) !== null) {
+        out += escapeHtml(s.slice(last, m.index));
+        const run = m[0];
+        out += OP_RE.test(run)
+          ? '<div class="math-line">' + escapeHtml(run) + "</div>"
+          : '<bdi dir="ltr">' + escapeHtml(run) + "</bdi>";
+        last = m.index + run.length;
       }
       return out + escapeHtml(s.slice(last));
     }
@@ -970,7 +988,7 @@
         (practiceMode === "mistakes") ? `שאלה ${pIndex + 1} מתוך ${pQuestions.length}` : `שאלה ${pIndex + 1}`;
       document.getElementById("p-type").innerText = q.type || "";
       document.getElementById("p-instruction").innerHTML = bidiHtml(q.instruction || "");
-      document.getElementById("p-question").innerHTML = bidiHtml(q.question);
+      document.getElementById("p-question").innerHTML = bidiBlocks(q.question);
       renderFigureInto("p-figure", q.figure || geoFromQuestion(q));
 
       // hint reset
@@ -1012,7 +1030,7 @@
     }
     function pShowExplanation(q, chosen) {
       const exp = document.getElementById("p-explanation");
-      exp.innerHTML = "הסבר: " + bidiHtml(q.explanation);
+      exp.innerHTML = "הסבר: " + bidiBlocks(q.explanation);
       exp.classList.remove("hidden");
       // remove old wrong-why
       const old = document.getElementById("p-wrong-why");
@@ -1022,7 +1040,7 @@
         const div = document.createElement("div");
         div.id = "p-wrong-why";
         div.className = "wrong-why";
-        div.innerHTML = "למה לא: " + bidiHtml(why || "זו אינה התשובה הנכונה.");
+        div.innerHTML = "למה לא: " + bidiBlocks(why || "זו אינה התשובה הנכונה.");
         exp.parentNode.insertBefore(div, exp);
       }
     }
@@ -1127,7 +1145,7 @@
         `שאלה ${examIndex + 1} מתוך ${examQ.length} · ${q.category}`;
       document.getElementById("e-type").innerText = q.type || "";
       document.getElementById("e-instruction").innerHTML = bidiHtml(q.instruction || "");
-      document.getElementById("e-question").innerHTML = bidiHtml(q.question);
+      document.getElementById("e-question").innerHTML = bidiBlocks(q.question);
       renderFigureInto("e-figure", q.figure || geoFromQuestion(q));
       const box = document.getElementById("e-options");
       box.innerHTML = "";
@@ -1261,12 +1279,12 @@
         const wrongWhy = (!isOk && chosen !== null && q.wrongExplanations && q.wrongExplanations[chosen])
           ? `<div class="line" style="color:var(--error)">למה לא: ${bidiHtml(q.wrongExplanations[chosen])}</div>` : "";
         item.innerHTML =
-          `<div class="q">${i + 1}. ${bidiHtml(q.question)}</div>` +
+          `<div class="q">${i + 1}. ${bidiBlocks(q.question)}</div>` +
           stemFig +
           `<div class="line">תשובתך: <span class="${isOk ? "ok" : "bad"}">${chosenText}</span></div>` +
           wrongWhy +
           (isOk ? "" : `<div class="line">התשובה הנכונה: <span class="ok">${correctText}</span></div>`) +
-          `<div class="line" style="color:var(--muted)">${bidiHtml(q.explanation)}</div>`;
+          `<div class="line" style="color:var(--muted)">${bidiBlocks(q.explanation)}</div>`;
         rev.appendChild(item);
       });
 
