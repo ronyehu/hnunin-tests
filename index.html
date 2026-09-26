@@ -133,6 +133,9 @@
       font-variant-numeric: tabular-nums;
     }
     .timer.low { background: #fee2e2; color: #991b1b; }
+    .answered-chip { background: var(--soft); color: var(--muted); padding: 4px 12px; border-radius: 999px; font-weight: 700; font-size: 14px; font-variant-numeric: tabular-nums; }
+    .answered-chip.done { background: #d1fae5; color: #065f46; }
+    html[data-theme="dark"] .answered-chip.done { background: #14342b; color: #34d399; }
     .question-text {
       font-size: 18px;
       font-weight: 600;
@@ -443,6 +446,7 @@
     <div id="screen-exam" class="hidden">
       <div class="header">
         <span id="e-badge" class="badge">מבחן</span>
+        <span id="e-answered" class="answered-chip">✓ 0/30</span>
         <span id="e-timer" class="timer">10:00</span>
       </div>
       <div id="e-progress" class="subtitle quiz-chrome" style="margin:0 0 6px;">שאלה 1 מתוך 30</div>
@@ -1121,28 +1125,41 @@
         box.appendChild(b);
       });
       document.getElementById("e-prev").disabled = examIndex === 0;
-      document.getElementById("e-next").disabled = examAnswers[examIndex] === null;
+      document.getElementById("e-next").disabled = false;   // skipping allowed
       document.getElementById("e-next").innerText =
         examIndex === examQ.length - 1 ? "סיום מבחן" : "הבא";
+      updateAnswered();
       scrollTop();
     }
+    function updateAnswered() {
+      const n = examAnswers.filter(a => a !== null).length, total = examQ.length;
+      const el = document.getElementById("e-answered");
+      el.innerText = "✓ " + ltrIso(n + "/" + total);
+      el.classList.toggle("done", n === total);
+    }
     function eSelect(idx) {
-      examAnswers[examIndex] = idx;
+      // click the same option again to clear it (back to unanswered)
+      examAnswers[examIndex] = (examAnswers[examIndex] === idx) ? null : idx;
+      const cur = examAnswers[examIndex];
       document.querySelectorAll("#e-options .btn-option").forEach((b, i) =>
-        b.classList.toggle("selected", i === idx));
-      document.getElementById("e-next").disabled = false;
+        b.classList.toggle("selected", i === cur));
+      updateAnswered();
     }
     function ePrev() {
       if (examIndex > 0) { examIndex--; eRender(); }
     }
     function eNext() {
-      if (examIndex < examQ.length - 1) { examIndex++; eRender(); }
-      else finishExam(false);
+      if (examIndex < examQ.length - 1) { examIndex++; eRender(); return; }
+      // last question -> finish, but make sure everything is answered
+      const un = examAnswers.filter(a => a === null).length;
+      if (un > 0 && !confirm(`ענית על ${examQ.length - un} מתוך ${examQ.length}. נותרו ${un} שאלות ללא תשובה. לסיים בכל זאת?`)) return;
+      finishExam(false);
     }
     function confirmFinish() {
       const answered = examAnswers.filter(a => a !== null).length;
-      const msg = answered < examQ.length
-        ? `לסיים את המבחן? ענית על ${answered} מתוך ${examQ.length} שאלות.`
+      const un = examQ.length - answered;
+      const msg = un > 0
+        ? `ענית על ${answered} מתוך ${examQ.length}. נותרו ${un} שאלות ללא תשובה. לסיים בכל זאת?`
         : "לסיים את המבחן ולראות את התוצאה?";
       if (confirm(msg)) finishExam(false);
     }
