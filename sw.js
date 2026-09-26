@@ -1,5 +1,5 @@
-/* Service worker: offline app shell + question banks (cache-first). */
-const CACHE = "hnunin-v7";
+/* Service worker: network-first (fresh when online), cache fallback offline. */
+const CACHE = "hnunin-v8";
 const ASSETS = [
   "./",
   "index.html",
@@ -25,22 +25,14 @@ self.addEventListener("activate", (e) => {
 self.addEventListener("fetch", (e) => {
   const req = e.request;
   if (req.method !== "GET") return;
+  const url = new URL(req.url);
+  if (url.origin !== self.location.origin) return;  // let cross-origin pass through
+  // Network-first: always try the network so content stays fresh; fall back
+  // to cache when offline. Keeps the app fully usable without a connection.
   e.respondWith(
-    caches.match(req).then((hit) => {
-      if (hit) {
-        // refresh in background
-        fetch(req).then((res) => {
-          if (res && res.ok) caches.open(CACHE).then((c) => c.put(req, res.clone()));
-        }).catch(() => {});
-        return hit;
-      }
-      return fetch(req).then((res) => {
-        if (res && res.ok && (req.url.endsWith(".json") || req.mode === "navigate")) {
-          const copy = res.clone();
-          caches.open(CACHE).then((c) => c.put(req, copy));
-        }
-        return res;
-      }).catch(() => caches.match("index.html"));
-    })
+    fetch(req).then((res) => {
+      if (res && res.ok) { const copy = res.clone(); caches.open(CACHE).then((c) => c.put(req, copy)); }
+      return res;
+    }).catch(() => caches.match(req).then((hit) => hit || caches.match("index.html")))
   );
 });
